@@ -32,7 +32,7 @@ export class Search extends Component<SearchProps, SearchState> {
         console.log('render!');
         return <form onSubmit={this.handleSubmit}>
             <label>Search the pony!</label>
-            <input type="search" placeholder="ditto" onChange={this.handleChange} defaultValue={this.state.value}></input>
+            <input type="search" placeholder="rarity" onChange={this.handleChange} defaultValue={this.state.value}></input>
             <button type="submit">Search</button>
         </form>
     }
