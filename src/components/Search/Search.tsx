@@ -1,7 +1,8 @@
-import { Component, type ChangeEvent, type ReactNode } from "react";
+import { Component, type ChangeEvent, type ReactNode, type SubmitEvent } from "react";
 
 type SearchProps = {
     children?: ReactNode
+    onSearch: (query:string) => void;
 }
 
 type SearchState = {
@@ -18,15 +19,23 @@ export class Search extends Component<SearchProps, SearchState> {
     }
 
     handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        this.setState({value: event.target.value});
         localStorage.setItem('searchValue', event.target.value);
+    }
+
+    handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        this.props.onSearch(this.state.value)
     }
 
     render() {
         console.log('render!');
-        return <form action="/search-results" method="GET">
-            <label>Search the pokemon!</label>
+        return <form onSubmit={this.handleSubmit}>
+            <label>Search the pony!</label>
             <input type="search" placeholder="ditto" onChange={this.handleChange} defaultValue={this.state.value}></input>
             <button type="submit">Search</button>
         </form>
     }
+
+    
 }

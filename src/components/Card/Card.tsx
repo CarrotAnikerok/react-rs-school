@@ -3,6 +3,8 @@ import "./Card.css";
 
 type CardProps = {
     children?: ReactNode
+    name: string,
+    description: string,
 }
 
 type CardState = {
@@ -17,10 +19,10 @@ export class Card extends Component<CardProps, CardState> {
     render() {
         return <div className="card">
             <div>
-                Ditto
+                {this.props.name}
             </div>
             <div>
-                Ditto description
+                {this.props.description}
             </div>
         </div>
     }
