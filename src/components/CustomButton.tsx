@@ -22,7 +22,7 @@ export class CustomButton extends React.Component<CustomButtonProps, CustomButto
         })
     }
 
-    render = () => {
+    render() {
         return <button onClick={this.onClickBtn}>custom button {this.state.count}</button>
     }
 }
