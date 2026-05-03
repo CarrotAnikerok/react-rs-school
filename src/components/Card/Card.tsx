@@ -17,13 +17,9 @@ export class Card extends Component<CardProps, CardState> {
     }
     
     render() {
-        return <div className="card">
-            <div>
-                {this.props.name}
-            </div>
-            <div>
-                {this.props.description}
-            </div>
-        </div>
+        return <>
+        <div> {this.props.name} </div>
+        <div>{this.props.description}</div>
+        </>
     }
 }

@@ -23,15 +23,12 @@ export class CardList extends Component<CardListProps, CardListState> {
     }
     
     render() {
-        let count = 0;
-        console.log('items is ', this.props.items[0])
         return <div>
                     <h3>Pony results!</h3>
                     <div className="card_grid">
                         <div>Name</div>
                         <div>Description</div>
                         {this.props.items.map((element) => {
-                            console.log('element name ' + element.name);
                             return <Card
                                 key={element.id}
                                 name={element.name}

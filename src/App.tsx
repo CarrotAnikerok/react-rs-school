@@ -8,13 +8,11 @@ export default class App extends Component {
         isLoading: false
     }
 
-    handleSearch = async (query: string) => {
+    handleSearch = async (query: string = 'all') => {
         this.state.isLoading = true;
         try {
-            console.log('search!');
             const response = await fetch(`https://ponyapi.net/v1/character/${query}`);
             const data = await response.json();
-            console.log(data);
             this.setState( { list: data.data, isLoading: false } )
         } catch (e) {
             console.log('Data not found');

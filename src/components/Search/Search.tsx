@@ -1,8 +1,9 @@
 import { Component, type ChangeEvent, type ReactNode, type SubmitEvent } from "react";
+import "./Search.css"
 
 type SearchProps = {
     children?: ReactNode
-    onSearch: (query:string) => void;
+    onSearch: (query?:string) => void;
 }
 
 type SearchState = {
@@ -12,7 +13,6 @@ type SearchState = {
 export class Search extends Component<SearchProps, SearchState> {
     constructor(props: SearchProps) {
         super(props);
-        console.log('constructor set!');
         this.state = {
             value: localStorage.getItem('searchValue') || '',
         }
@@ -25,15 +25,24 @@ export class Search extends Component<SearchProps, SearchState> {
 
     handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
-        this.props.onSearch(this.state.value)
+        this.props.onSearch(this.state.value || 'all');
+    }
+
+    componentDidMount(): void {
+        if (this.state.value) {
+            this.props.onSearch(this.state.value);
+        } else {
+            this.props.onSearch();
+        }
     }
 
     render() {
-        console.log('render!');
         return <form onSubmit={this.handleSubmit}>
-            <label>Search the pony!</label>
-            <input type="search" placeholder="rarity" onChange={this.handleChange} defaultValue={this.state.value}></input>
-            <button type="submit">Search</button>
+            <label htmlFor="search">Search the pony!</label>
+            <div className="input-group">
+                <input id="search" type="search" placeholder="rarity" onChange={this.handleChange} defaultValue={this.state.value}></input>
+                <button type="submit">Search</button>
+            </div>
         </form>
     }
 
