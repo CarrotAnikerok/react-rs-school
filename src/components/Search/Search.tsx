@@ -18,14 +18,11 @@ export class Search extends Component<SearchProps, SearchState> {
         }
     }
 
-    handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        this.setState({value: event.target.value});
-        localStorage.setItem('searchValue', event.target.value);
-    }
-
     handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
-        this.props.onSearch(this.state.value || 'all');
+        const formData = new FormData(event.currentTarget);
+        const value = formData.get('query')?.toString() || '';
+        this.setState({ value: value });
     }
 
     componentDidMount(): void {
@@ -36,11 +33,19 @@ export class Search extends Component<SearchProps, SearchState> {
         }
     }
 
+    componentDidUpdate(_prevProps: Readonly<SearchProps>, prevState: Readonly<SearchState>): void {
+        if (this.state.value !== prevState.value) {
+            const trimmedValue = this.state.value.trim();
+            this.props.onSearch(trimmedValue || 'all');
+            localStorage.setItem('searchValue', trimmedValue);
+        }
+    }
+
     render() {
         return <form onSubmit={this.handleSubmit}>
             <label htmlFor="search">Search the pony!</label>
             <div className="input-group">
-                <input id="search" type="search" placeholder="rarity" onChange={this.handleChange} defaultValue={this.state.value}></input>
+                <input id="search" name="query" type="search" placeholder="rarity" defaultValue={this.state.value}></input>
                 <button type="submit">Search</button>
             </div>
         </form>
