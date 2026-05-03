@@ -5,13 +5,14 @@ import { Search } from "./components/Search/Search";
 export default class App extends Component {
     state = {
         list: [],
-        isLoading: false
+        isLoading: false,
+        limit: 30
     }
 
     handleSearch = async (query: string = 'all') => {
         this.state.isLoading = true;
         try {
-            const response = await fetch(`https://ponyapi.net/v1/character/${query}`);
+            const response = await fetch(`https://ponyapi.net/v1/character/${query}?limit=${this.state.limit}`);
             const data = await response.json();
             this.setState( { list: data.data, isLoading: false } )
         } catch (e) {
