@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { CardList } from "./components/CardList/CardList";
 import { Search } from "./components/Search/Search";
+import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 
 export default class App extends Component {
     state = {
@@ -39,7 +40,9 @@ export default class App extends Component {
     render() {
         return <>
         <Search onSearch={this.handleSearch}></Search>
-        <CardList items={this.state.list} isLoading={this.state.isLoading} error={this.state.error}></CardList>
+        <ErrorBoundary fallback={<p className="errorMessage">Something went wrong with ponies :(</p>}>
+            <CardList items={this.state.list} isLoading={this.state.isLoading} error={this.state.error}></CardList>
+        </ErrorBoundary>
     </>
     }
 }

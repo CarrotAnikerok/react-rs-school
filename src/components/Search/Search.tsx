@@ -1,4 +1,4 @@
-import { Component, type ChangeEvent, type ReactNode, type SubmitEvent } from "react";
+import { Component, type ReactNode, type SubmitEvent } from "react";
 import "./Search.css"
 
 type SearchProps = {

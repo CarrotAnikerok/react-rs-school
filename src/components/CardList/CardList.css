@@ -39,3 +39,13 @@
         transform: rotate(360deg);
     }
 } 
+
+.errorButton {
+    float: inline-end;
+    margin: 10px;
+    opacity: 30%;
+    background-color: #FBF6A3;
+    color: var(--text);
+    border-radius: 10%;
+    border-color: violet;
+}

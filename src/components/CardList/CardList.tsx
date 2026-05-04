@@ -24,17 +24,25 @@ export class CardList extends Component<CardListProps, CardListState> {
         super(props);
     }
 
-    renderLoading() {
+    renderLoading = () => {
         return <div className="loader-wrapper">
                 <div className="loader"></div>
             </div>
     }
 
-    renderError(errorMessage: string) {
+    renderError = (errorMessage: string) => {
         return <div>
                 <h3>Pony results!</h3>
                 <div>{errorMessage}</div>
             </div>
+    }
+
+    throwError = () => {
+        try {
+            throw new Error('mew im an error')
+        } catch(error) {
+            this.setState(() => {throw error});
+        }
     }
     
     render() {
@@ -59,6 +67,7 @@ export class CardList extends Component<CardListProps, CardListState> {
                             ></Card>
                         })}
                     </div>
+                    <button className="errorButton" onClick={this.throwError}>Im an error button!</button>
                 </div>
 
     }
