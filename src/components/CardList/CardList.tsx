@@ -12,6 +12,7 @@ type CardListProps = {
     children?: ReactNode
     items: data[]
     isLoading: boolean
+    error: string
 }
 
 type CardListState = {
@@ -28,10 +29,21 @@ export class CardList extends Component<CardListProps, CardListState> {
                 <div className="loader"></div>
             </div>
     }
+
+    renderError(errorMessage: string) {
+        return <div>
+                <h3>Pony results!</h3>
+                <div>{errorMessage}</div>
+            </div>
+    }
     
     render() {
         if (this.props.isLoading) {
             return this.renderLoading();
+        }
+
+        if (this.props.error) {
+            return this.renderError(this.props.error);
         }
 
         return <div>

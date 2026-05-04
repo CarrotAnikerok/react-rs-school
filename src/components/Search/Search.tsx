@@ -22,12 +22,12 @@ export class Search extends Component<SearchProps, SearchState> {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         const value = formData.get('query')?.toString() || '';
-        this.setState({ value: value });
+        this.setState({ value: value.trim()});
     }
 
     componentDidMount(): void {
         if (this.state.value) {
-            this.props.onSearch(this.state.value);
+            this.props.onSearch(this.state.value.replaceAll(' ', '_'));
         } else {
             this.props.onSearch();
         }
@@ -35,9 +35,8 @@ export class Search extends Component<SearchProps, SearchState> {
 
     componentDidUpdate(_prevProps: Readonly<SearchProps>, prevState: Readonly<SearchState>): void {
         if (this.state.value !== prevState.value) {
-            const trimmedValue = this.state.value.trim();
-            this.props.onSearch(trimmedValue || 'all');
-            localStorage.setItem('searchValue', trimmedValue);
+            this.props.onSearch(this.state.value.replaceAll(' ', '_') || 'all');
+            localStorage.setItem('searchValue', this.state.value);
         }
     }
 
