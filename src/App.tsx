@@ -10,7 +10,7 @@ export default class App extends Component {
     }
 
     handleSearch = async (query: string = 'all') => {
-        this.state.isLoading = true;
+        this.setState( { isLoading: true } )
         try {
             const response = await fetch(`https://ponyapi.net/v1/character/${query}?limit=${this.state.limit}`);
             const data = await response.json();
@@ -25,7 +25,7 @@ export default class App extends Component {
     render() {
         return <>
         <Search onSearch={this.handleSearch}></Search>
-        <CardList items={this.state.list}></CardList>
+        <CardList items={this.state.list} isLoading={this.state.isLoading}></CardList>
     </>
     }
 }

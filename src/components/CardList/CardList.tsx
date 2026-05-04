@@ -11,6 +11,7 @@ type data = {
 type CardListProps = {
     children?: ReactNode
     items: data[]
+    isLoading: boolean
 }
 
 type CardListState = {
@@ -21,8 +22,18 @@ export class CardList extends Component<CardListProps, CardListState> {
     constructor(props: CardListProps) {
         super(props);
     }
+
+    renderLoading() {
+        return <div className="loader-wrapper">
+                <div className="loader"></div>
+            </div>
+    }
     
     render() {
+        if (this.props.isLoading) {
+            return this.renderLoading();
+        }
+
         return <div>
                     <h3>Pony results!</h3>
                     <div className="card_grid">
