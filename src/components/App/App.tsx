@@ -1,7 +1,7 @@
 import { Component } from "react";
-import { CardList } from "./components/CardList/CardList";
-import { Search } from "./components/Search/Search";
-import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
+import { Search } from "../Search/Search";
+import { ErrorBoundary } from "../ErrorBoundary/ErrorBoundary";
+import { CardList } from "../CardList/CardList";
 
 export default class App extends Component {
     state = {
