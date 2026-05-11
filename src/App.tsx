@@ -28,7 +28,7 @@ export default class App extends Component {
 
       const data = await response.json();
       this.setState({ list: data.data, isLoading: false, error: '' });
-    } catch (e) {
+    } catch {
       this.setState({
         list: [],
         isLoading: false,
