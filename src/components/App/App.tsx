@@ -32,7 +32,7 @@ export default class App extends Component {
       this.setState({
         list: [],
         isLoading: false,
-        error: 'Ошибка доступа или сети :(',
+        error: 'Error of access or network :(',
       });
     }
   };
