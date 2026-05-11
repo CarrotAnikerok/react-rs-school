@@ -1,24 +1,26 @@
-import { Component, type ReactNode } from "react"
+import { Component, type ReactNode } from 'react';
 
 type CardProps = {
-    children?: ReactNode
-    name: string,
-    description: string,
-}
+  children?: ReactNode;
+  name: string;
+  description: string;
+};
 
 type CardState = {
-    count: number
-}
+  count: number;
+};
 
 export class Card extends Component<CardProps, CardState> {
-    constructor(props: CardProps) {
-        super(props);
-    }
-    
-    render() {
-        return <>
-            <div data-testid='card-name'> {this.props.name} </div>
-            <div> {this.props.description} </div>
-        </>
-    }
+  constructor(props: CardProps) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <>
+        <div data-testid="card-name"> {this.props.name} </div>
+        <div> {this.props.description} </div>
+      </>
+    );
+  }
 }
