@@ -49,6 +49,4 @@ export class Search extends Component<SearchProps, SearchState> {
             </div>
         </form>
     }
-
-    
 }
