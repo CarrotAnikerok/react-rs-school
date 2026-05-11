@@ -1,51 +1,51 @@
 .card_grid {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    border-top: 3px dotted violet;
-    border-left: 3px dotted violet;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  border-top: 3px dotted violet;
+  border-left: 3px dotted violet;
 }
 
 .card_grid > div {
-    border-bottom: 3px dotted violet;
-    border-right: 3px dotted violet;
-    padding: 10px;
+  border-bottom: 3px dotted violet;
+  border-right: 3px dotted violet;
+  padding: 10px;
 }
 
 .card_grid > div:nth-child(4n-3),
 .card_grid > div:nth-child(4n-2) {
-    background-color: #FBF6A3;
+  background-color: #fbf6a3;
 }
 
 .loader-wrapper {
-    padding: 30px;
+  padding: 30px;
 }
 
 .loader {
-    width: 48px;
-    height: 48px;
-    border: 5px solid violet;
-    border-bottom-color: #ADD8E6;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
+  width: 48px;
+  height: 48px;
+  border: 5px solid violet;
+  border-bottom-color: #add8e6;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
 
 @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-} 
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 .errorButton {
-    float: inline-end;
-    margin: 10px;
-    opacity: 30%;
-    background-color: #FBF6A3;
-    color: var(--text);
-    border-radius: 10%;
-    border-color: violet;
+  float: inline-end;
+  margin: 10px;
+  opacity: 30%;
+  background-color: #fbf6a3;
+  color: var(--text);
+  border-radius: 10%;
+  border-color: violet;
 }

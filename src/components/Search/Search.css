@@ -1,18 +1,18 @@
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 label {
-    color: violet;
-    font-size: 30px;
-    font-weight: bold;
-    margin: 10px;
+  color: violet;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px;
 }
 
 .input-group {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
