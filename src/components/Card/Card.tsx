@@ -18,8 +18,8 @@ export class Card extends Component<CardProps, CardState> {
   render() {
     return (
       <>
-        <div> {this.props.name} </div>
-        <div>{this.props.description}</div>
+        <div data-testid="card-name"> {this.props.name} </div>
+        <div> {this.props.description} </div>
       </>
     );
   }

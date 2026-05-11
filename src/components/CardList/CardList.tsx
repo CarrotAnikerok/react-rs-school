@@ -27,7 +27,7 @@ export class CardList extends Component<CardListProps, CardListState> {
   renderLoading = () => {
     return (
       <div className="loader-wrapper">
-        <div className="loader"></div>
+        <div className="loader" aria-label="loader"></div>
       </div>
     );
   };
