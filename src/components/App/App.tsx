@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 import { Search } from '../Search/Search';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import { CardList } from '../CardList/CardList';
+import { Navigation } from '../Navigation/Navigation';
 
 const getErrorMessage = (status: number) => {
     const category = Math.floor(status / 100);
@@ -48,6 +49,7 @@ export function App() {
 
     return (
         <>
+            <Navigation></Navigation>
             <Search onSearch={handleSearch}></Search>
             <ErrorBoundary
                 fallback={
