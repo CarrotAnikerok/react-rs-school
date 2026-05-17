@@ -1,5 +1,6 @@
-import { useEffect, useState, type ReactNode, type SubmitEvent } from 'react';
+import { useEffect, type ReactNode, type SubmitEvent } from 'react';
 import './Search.css';
+import { useLocalStorage } from '../../customHooks';
 
 type SearchProps = {
     children?: ReactNode;
@@ -7,7 +8,7 @@ type SearchProps = {
 };
 
 export function Search({ onSearch }: SearchProps) {
-    const [searchValue, setSearchValue] = useState<string>(localStorage.getItem('searchValue') || '');
+    const [searchValue, setSearchValue] = useLocalStorage('searchValue')
 
     const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -18,7 +19,6 @@ export function Search({ onSearch }: SearchProps) {
 
     useEffect(() => {
         onSearch(searchValue.replaceAll(' ', '_') || 'all');
-        localStorage.setItem('searchValue', searchValue);
     }, [searchValue, onSearch])
 
     return (
