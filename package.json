@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "format:fix": "prettier --write .",
     "prepare": "husky",
-    "test": "vitest"
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
   },
   "dependencies": {
     "react": "^19.2.5",
