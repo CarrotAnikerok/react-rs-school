@@ -7,3 +7,7 @@ nav {
     border-bottom: solid 1px;
     padding-bottom: 1rem;
 }
+
+.active {
+    font-weight: bold;
+}

@@ -1,20 +1,17 @@
-import { Link, Route, Routes } from "react-router";
+import { NavLink, type NavLinkRenderProps } from "react-router";
 import './Navigation.css';
-import { App } from "../App/App";
-import { About } from "../About/About";
 
-export function Navigation() {
+type LayoutProps = {
+    style: (props: NavLinkRenderProps) => string;
+};
+
+export function Navigation({ style }: LayoutProps) {
     return (
         <>
             <nav>
-                <Link to="/home">Home</Link>
-                <Link to="/about">About page</Link>
+                <NavLink to="/home" className={style}>Home</NavLink>
+                <NavLink to="/about" className={style}>About page</NavLink>
             </nav>
-
-            <Routes>
-                <Route path="home" element={<App />} />
-                <Route path="about" element={<About />} />
-            </Routes>
         </>
     );
 }
