@@ -9,7 +9,7 @@ export function Navigation({ style }: LayoutProps) {
   return (
     <>
       <nav>
-        <NavLink to="/home" className={style}>
+        <NavLink to="/" className={style}>
           Home
         </NavLink>
         <NavLink to="/about" className={style}>
