@@ -1,7 +1,9 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { CardList } from '../components/CardList/CardList';
 import { ErrorBoundary } from '../components/ErrorBoundary/ErrorBoundary';
 import { Search } from '../components/Search/Search';
+import { useSearchParams } from 'react-router';
+import { Pagination } from '../components/Pagination/Pagination';
 
 const getErrorMessage = (status: number) => {
   const category = Math.floor(status / 100);
@@ -20,12 +22,16 @@ export function Home() {
   const [error, setError] = useState('');
   const limit = useRef<number>(30);
 
-  const handleSearch = useCallback(async (query: string = 'all') => {
+  const [currentQuery, setCurrentQuery] = useState('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(searchParams.get('page') || '1', 10);
+
+  const loadData = useCallback(async (page: number, query: string = 'all') => {
     setIsLoading(true);
 
     try {
       const response = await fetch(
-        `https://ponyapi.net/v1/character/${query}?limit=${limit.current}`
+        `https://ponyapi.net/v1/character/${query}?limit=${limit.current}&offset=${(page - 1) * limit.current}`
       );
 
       if (!response.ok) {
@@ -46,9 +52,38 @@ export function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    loadData(currentPage, currentQuery)
+  }, [currentQuery, currentPage, loadData])
+
+  const handleSearch = useCallback((query: string = 'all') => {
+      setCurrentQuery(query);
+
+      setSearchParams((prev) => {
+        prev.set('page', '1');
+        return prev;
+      })
+  }, [setSearchParams]);
+
+  const changePage = (newPage: number) => {
+      setSearchParams((prev) => {
+        prev.set('page', String(newPage));
+        console.log('new page is ' + String(newPage));
+        return prev;
+      })
+  }
+  
+
   return (
     <>
       <Search onSearch={handleSearch}></Search>
+      {!isLoading && !error && list.length > 0 ? (
+        <Pagination
+            currentPage={currentPage}
+            changePage={changePage}
+            hasMore={list.length === limit.current}>
+        </Pagination>
+      ): null}
       <ErrorBoundary
         fallback={
           <p className="errorMessage">Something went wrong with ponies :(</p>

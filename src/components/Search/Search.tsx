@@ -13,13 +13,19 @@ export function Search({ onSearch }: SearchProps) {
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const value = formData.get('query')?.toString() || '';
-    setSearchValue(value.trim());
+    const value = (formData.get('query')?.toString() || '').trim();
+    setSearchValue(value);
+
+    if (value === searchValue) {
+      return;
+    }
+
+    onSearch(value.replaceAll(' ', '_') || 'all');
   };
 
   useEffect(() => {
     onSearch(searchValue.replaceAll(' ', '_') || 'all');
-  }, [searchValue, onSearch]);
+  }, []);
 
   return (
     <form onSubmit={handleSubmit}>

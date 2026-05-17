@@ -1,6 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { mockSearchData } from './test-utils/mocks';
 import { Home } from '../src/Home/Home';
+import { MemoryRouter } from 'react-router';
+
+const renderWithRouter = (ui: React.ReactElement) => {
+  return render(<MemoryRouter>{ui}</MemoryRouter>);
+};
 
 describe('Home Component', () => {
   beforeAll(() => {
@@ -22,7 +27,7 @@ describe('Home Component', () => {
       const fetchMock = vi.mocked(fetch);
       fetchMock.mockReturnValue(pendingPromise);
 
-      render(<Home />);
+      renderWithRouter(<Home />);
 
       expect(
         screen.getByRole('generic', { name: /loader/i })
@@ -45,7 +50,7 @@ describe('Home Component', () => {
     it('call api with correct parameters', async () => {
       const fetchMock = vi.mocked(fetch);
 
-      render(<Home />);
+      renderWithRouter(<Home />);
 
       await waitFor(() => {
         expect(fetchMock).toHaveBeenCalledWith(
@@ -61,7 +66,7 @@ describe('Home Component', () => {
         json: async () => ({ data: mockSearchData }),
       } as Response);
 
-      render(<Home />);
+      renderWithRouter(<Home />);
 
       expect(
         await screen.findByText(new RegExp(mockSearchData[0].name, 'i'))
@@ -76,7 +81,7 @@ describe('Home Component', () => {
         status: 400,
       } as Response);
 
-      render(<Home />);
+      renderWithRouter(<Home />);
 
       expect(
         await screen.findByText(/sorry, client error/i)
@@ -91,7 +96,7 @@ describe('Home Component', () => {
         status: 500,
       } as Response);
 
-      render(<Home />);
+      renderWithRouter(<Home />);
 
       expect(
         await screen.findByText(/sorry, server error/i)
@@ -106,7 +111,7 @@ describe('Home Component', () => {
         status: 300,
       } as Response);
 
-      render(<Home />);
+      renderWithRouter(<Home />);
 
       expect(
         await screen.findByText(/sorry, some weird error has occurred/i)
@@ -118,7 +123,7 @@ describe('Home Component', () => {
 
       fetchMock.mockRejectedValue(new Error('Failed to fetch'));
 
-      render(<Home />);
+      renderWithRouter(<Home />);
 
       expect(
         await screen.findByText(/error of access or network/i)
