@@ -1,85 +1,58 @@
-import { Component, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import './CardList.css';
 import { Card } from '../Card/Card';
+import { Loader } from '../Loader/Loader';
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 
 type data = {
-  id: number;
-  name: string;
-  occupation: string;
+    id: number;
+    name: string;
+    occupation: string;
 };
 
 type CardListProps = {
-  children?: ReactNode;
-  items: data[];
-  isLoading: boolean;
-  error: string;
+    children?: ReactNode;
+    items: data[];
+    isLoading: boolean;
+    error: string;
 };
 
-type CardListState = {
-  count: number;
-};
+export function CardList({items, isLoading, error}: CardListProps) {
+    const [, setThrowError] = useState(null);
 
-export class CardList extends Component<CardListProps, CardListState> {
-  constructor(props: CardListProps) {
-    super(props);
-  }
+    const throwError = () => {
+        setThrowError(() => {
+              throw new Error('mew im an error');
+            })
+    };
 
-  renderLoading = () => {
-    return (
-      <div className="loader-wrapper">
-        <div className="loader" aria-label="loader"></div>
-      </div>
-    );
-  };
-
-  renderError = (errorMessage: string) => {
-    return (
-      <div>
-        <h3>Pony results!</h3>
-        <div>{errorMessage}</div>
-      </div>
-    );
-  };
-
-  throwError = () => {
-    try {
-      throw new Error('mew im an error');
-    } catch (error) {
-      this.setState(() => {
-        throw error;
-      });
-    }
-  };
-
-  render() {
-    if (this.props.isLoading) {
-      return this.renderLoading();
+    if (isLoading) {
+        return <Loader></Loader>
     }
 
-    if (this.props.error) {
-      return this.renderError(this.props.error);
+    if (error) {
+        return <ErrorMessage message={error}></ErrorMessage>
     }
 
     return (
-      <div>
-        <h3>Pony results!</h3>
-        <div className="card_grid">
-          <div>Name</div>
-          <div>Description</div>
-          {this.props.items.map((element) => {
-            return (
-              <Card
-                key={element.id}
-                name={element.name}
-                description={element.occupation}
-              ></Card>
-            );
-          })}
+        <div>
+            <h3>Pony results!</h3>
+            <div className="card_grid">
+                <div>Name</div>
+                <div>Description</div>
+                {items.map((element) => {
+                    return (
+                        <Card
+                            key={element.id}
+                            name={element.name}
+                            description={element.occupation}
+                        ></Card>
+                    );
+                })}
+            </div>
+            <button className="errorButton" onClick={throwError}>
+                Im an error button!
+            </button>
         </div>
-        <button className="errorButton" onClick={this.throwError}>
-          Im an error button!
-        </button>
-      </div>
-    );
-  }
+  );
 }

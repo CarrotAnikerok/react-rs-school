@@ -1,68 +1,65 @@
-import { Component } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Search } from '../Search/Search';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import { CardList } from '../CardList/CardList';
 
-export default class App extends Component {
-  state = {
-    list: [],
-    isLoading: false,
-    error: '',
-    limit: 30,
-  };
-
-  handleSearch = async (query: string = 'all') => {
-    this.setState({ isLoading: true });
-    try {
-      const response = await fetch(
-        `https://ponyapi.net/v1/character/${query}?limit=${this.state.limit}`
-      );
-      if (!response.ok) {
-        this.setState({
-          list: [],
-          isLoading: false,
-          error: this.getErrorMessage(response.status),
-        });
-        return;
-      }
-
-      const data = await response.json();
-      this.setState({ list: data.data, isLoading: false, error: '' });
-    } catch {
-      this.setState({
-        list: [],
-        isLoading: false,
-        error: 'Error of access or network :(',
-      });
-    }
-  };
-
-  getErrorMessage(status: number) {
-    if (status / 100 === 5) {
-      return `Sorry, server error :( ${status}`;
-    } else if (status / 100 === 4) {
-      return `Sorry, client error :( ${status})`;
+const getErrorMessage = (status: number) => {
+    const category = Math.floor(status / 100);
+    if (category === 5) {
+        return `Sorry, server error :( ${status}`;
+    } else if (category === 4) {
+        return `Sorry, client error :( ${status})`;
     }
 
     return `Sorry, some weird error has occurred :( ${status})`;
-  }
+}
 
-  render() {
+export function App() {
+    const [list, setList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const limit = useRef<number>(30);
+
+    const handleSearch = useCallback(async (query: string = 'all') => {
+        setIsLoading(true);
+
+        try {
+            const response = await fetch(
+                `https://ponyapi.net/v1/character/${query}?limit=${limit.current}`
+            );
+    
+            if (!response.ok) {
+                setList([]);
+                setIsLoading(false);
+                setError(getErrorMessage(response.status))
+                return;
+            }
+
+            const data = await response.json();
+            setList(data.data);
+            setIsLoading(false);
+            setError('')
+        } catch {
+            setList([]);
+            setIsLoading(false);
+            setError('Error of access or network :(')
+        }
+    }, []);
+
     return (
-      <>
-        <Search onSearch={this.handleSearch}></Search>
-        <ErrorBoundary
-          fallback={
-            <p className="errorMessage">Something went wrong with ponies :(</p>
-          }
-        >
-          <CardList
-            items={this.state.list}
-            isLoading={this.state.isLoading}
-            error={this.state.error}
-          ></CardList>
-        </ErrorBoundary>
-      </>
+        <>
+            <Search onSearch={handleSearch}></Search>
+            <ErrorBoundary
+                fallback={
+                    <p className="errorMessage">Something went wrong with ponies :(</p>
+                }
+            >
+                <CardList
+                    items={list}
+                    isLoading={isLoading}
+                    error={error}
+                ></CardList>
+            </ErrorBoundary>
+        </>
     );
-  }
 }

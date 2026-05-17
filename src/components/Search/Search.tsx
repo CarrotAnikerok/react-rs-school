@@ -1,63 +1,39 @@
-import { Component, type ReactNode, type SubmitEvent } from 'react';
+import { useEffect, useState, type ReactNode, type SubmitEvent } from 'react';
 import './Search.css';
 
 type SearchProps = {
-  children?: ReactNode;
-  onSearch: (query?: string) => void;
+    children?: ReactNode;
+    onSearch: (query?: string) => void;
 };
 
-type SearchState = {
-  value: string;
-};
+export function Search({ onSearch }: SearchProps) {
+    const [searchValue, setSearchValue] = useState<string>(localStorage.getItem('searchValue') || '');
 
-export class Search extends Component<SearchProps, SearchState> {
-  constructor(props: SearchProps) {
-    super(props);
-    this.state = {
-      value: localStorage.getItem('searchValue') || '',
+    const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        const value = formData.get('query')?.toString() || '';
+        setSearchValue(value.trim());
     };
-  }
 
-  handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const value = formData.get('query')?.toString() || '';
-    this.setState({ value: value.trim() });
-  };
+    useEffect(() => {
+        onSearch(searchValue.replaceAll(' ', '_') || 'all');
+        localStorage.setItem('searchValue', searchValue);
+    }, [searchValue, onSearch])
 
-  componentDidMount(): void {
-    if (this.state.value) {
-      this.props.onSearch(this.state.value.replaceAll(' ', '_'));
-    } else {
-      this.props.onSearch();
-    }
-  }
-
-  componentDidUpdate(
-    _prevProps: Readonly<SearchProps>,
-    prevState: Readonly<SearchState>
-  ): void {
-    if (this.state.value !== prevState.value) {
-      this.props.onSearch(this.state.value.replaceAll(' ', '_') || 'all');
-      localStorage.setItem('searchValue', this.state.value);
-    }
-  }
-
-  render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="search">Search the pony!</label>
-        <div className="input-group">
-          <input
-            id="search"
-            name="query"
-            type="search"
-            placeholder="rarity"
-            defaultValue={this.state.value}
-          ></input>
-          <button type="submit">Search</button>
-        </div>
-      </form>
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="search">Search the pony!</label>
+            <div className="input-group">
+                <input
+                    id="search"
+                    name="query"
+                    type="search"
+                    placeholder="rarity"
+                    defaultValue={searchValue}
+                ></input>
+                <button type="submit">Search</button>
+            </div>
+        </form>
     );
-  }
 }
