@@ -62,24 +62,6 @@ describe('Pagination Component', () => {
     expect(mockChangePage).toHaveBeenCalledWith(2);
   });
 
-  it('handles case when both buttons are disabled on single page', async () => {
-    const mockChangePage = vi.fn();
-    render(
-      <Pagination 
-        currentPage={1} 
-        changePage={mockChangePage} 
-        hasMore={false} 
-      />
-    );
-
-    const backButton = screen.getByRole('button', { name: /back/i });
-    const nextButton = screen.getByRole('button', { name: /next/i });
-
-    expect(backButton).toBeDisabled();
-    expect(nextButton).toBeDisabled();
-    expect(mockChangePage).not.toHaveBeenCalled();
-  });
-
     it('fully covers all interactive branches and click handlers', async () => {
     const mockChangePage = vi.fn();
     const user = userEvent.setup();

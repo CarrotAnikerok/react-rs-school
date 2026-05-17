@@ -20,7 +20,7 @@ export function Home() {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const limit = useRef<number>(30);
+  const limit = useRef<number>(10);
 
   const [currentQuery, setCurrentQuery] = useState('all');
   const [searchParams, setSearchParams] = useSearchParams();
