@@ -3,6 +3,7 @@ import './CardList.css';
 import { Card } from '../Card/Card';
 import { Loader } from '../Loader/Loader';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
+import { Link, useSearchParams } from 'react-router';
 
 type data = {
   id: number;
@@ -19,6 +20,7 @@ type CardListProps = {
 
 export function CardList({ items, isLoading, error }: CardListProps) {
   const [, setThrowError] = useState(null);
+  const [searchParams] = useSearchParams();
 
   const throwError = () => {
     setThrowError(() => {
@@ -42,11 +44,17 @@ export function CardList({ items, isLoading, error }: CardListProps) {
         <div>Description</div>
         {items.map((element) => {
           return (
-            <Card
+            <Link
               key={element.id}
-              name={element.name}
-              description={element.occupation}
-            ></Card>
+              to={`${element.id}?${searchParams.toString()}`}
+              style={{ display: 'contents', textDecoration: 'none', color: 'inherit' }}
+              >
+                <Card
+                  key={element.id}
+                  name={element.name}
+                  description={element.occupation}
+              ></Card>
+            </Link>
           );
         })}
       </div>
