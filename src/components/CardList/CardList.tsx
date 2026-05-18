@@ -47,12 +47,16 @@ export function CardList({ items, isLoading, error }: CardListProps) {
             <Link
               key={element.id}
               to={`${element.id}?${searchParams.toString()}`}
-              style={{ display: 'contents', textDecoration: 'none', color: 'inherit' }}
-              >
-                <Card
-                  key={element.id}
-                  name={element.name}
-                  description={element.occupation}
+              style={{
+                display: 'contents',
+                textDecoration: 'none',
+                color: 'inherit',
+              }}
+            >
+              <Card
+                key={element.id}
+                name={element.name}
+                description={element.occupation}
               ></Card>
             </Link>
           );

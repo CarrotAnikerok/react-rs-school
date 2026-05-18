@@ -1,22 +1,22 @@
 .home {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  height: 100vh;
 }
 
 .list-part {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
 }
 
 .details {
-    display: none;
-    flex: 1;
-    border-left: 1px solid #ccc;
-    position: relative;
-    overflow-y: auto;
+  display: none;
+  flex: 1;
+  border-left: 1px solid #ccc;
+  position: relative;
+  overflow-y: auto;
 }
 
 .home.has-details .details {
-    display: block;
+  display: block;
 }

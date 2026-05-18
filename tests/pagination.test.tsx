@@ -8,11 +8,7 @@ describe('Pagination Component', () => {
     const mockChangePage = vi.fn();
 
     render(
-      <Pagination 
-        currentPage={1} 
-        changePage={mockChangePage} 
-        hasMore={true} 
-      />
+      <Pagination currentPage={1} changePage={mockChangePage} hasMore={true} />
     );
 
     expect(screen.getByText('Page 1')).toBeInTheDocument();
@@ -29,11 +25,7 @@ describe('Pagination Component', () => {
     const user = userEvent.setup();
 
     render(
-      <Pagination 
-        currentPage={2} 
-        changePage={mockChangePage} 
-        hasMore={true} 
-      />
+      <Pagination currentPage={2} changePage={mockChangePage} hasMore={true} />
     );
 
     const nextButton = screen.getByRole('button', { name: /next/i });
@@ -48,11 +40,7 @@ describe('Pagination Component', () => {
     const user = userEvent.setup();
 
     render(
-      <Pagination 
-        currentPage={3} 
-        changePage={mockChangePage} 
-        hasMore={true} 
-      />
+      <Pagination currentPage={3} changePage={mockChangePage} hasMore={true} />
     );
 
     const backButton = screen.getByRole('button', { name: /back/i });
@@ -62,7 +50,7 @@ describe('Pagination Component', () => {
     expect(mockChangePage).toHaveBeenCalledWith(2);
   });
 
-    it('fully covers all interactive branches and click handlers', async () => {
+  it('fully covers all interactive branches and click handlers', async () => {
     const mockChangePage = vi.fn();
     const user = userEvent.setup();
 
@@ -88,7 +76,7 @@ describe('Pagination Component', () => {
 
     expect(disabledBack).toBeDisabled();
     expect(disabledNext).toBeDisabled();
-    
+
     await user.click(disabledBack);
     await user.click(disabledNext);
 

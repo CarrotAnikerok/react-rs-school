@@ -1,14 +1,14 @@
 h2 {
-    color: violet;
-    margin: 10px;
-    font-family: var(--purse);
-    font-size: 45px;
+  color: violet;
+  margin: 10px;
+  font-family: var(--purse);
+  font-size: 45px;
 }
 
 b {
-    color: #FFB6C1;
-    font-family: var(--playfair);
-    font-size: 20px;
+  color: #ffb6c1;
+  font-family: var(--playfair);
+  font-size: 20px;
 }
 
 p {
@@ -16,19 +16,19 @@ p {
 }
 
 img {
-    min-width: 200px;
-    max-width: 600px;
-    min-height: 150px;
-    max-height: 300px;
-    object-fit: cover; 
+  min-width: 200px;
+  max-width: 600px;
+  min-height: 150px;
+  max-height: 300px;
+  object-fit: cover;
 }
 
 .info {
-    margin-left: 10px;
-    text-align: left;
+  margin-left: 10px;
+  text-align: left;
 }
 
 .exit {
-    float: inline-end;
-    margin: 10px;
+  float: inline-end;
+  margin: 10px;
 }

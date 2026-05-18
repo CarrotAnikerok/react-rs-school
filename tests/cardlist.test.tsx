@@ -4,10 +4,11 @@ import { mockSearchData } from './test-utils/mocks';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouter } from './test-utils/utils';
 
-
 describe('CardList Component', () => {
   it('renders cards', () => {
-    renderWithRouter(<CardList items={mockSearchData} isLoading={false} error="" />);
+    renderWithRouter(
+      <CardList items={mockSearchData} isLoading={false} error="" />
+    );
 
     expect(
       screen.getByText(new RegExp(mockSearchData[0].name, 'i'))
@@ -21,7 +22,9 @@ describe('CardList Component', () => {
   });
 
   it('renders loading', () => {
-    renderWithRouter(<CardList items={mockSearchData} isLoading={true} error="" />);
+    renderWithRouter(
+      <CardList items={mockSearchData} isLoading={true} error="" />
+    );
 
     expect(
       screen.getByRole('generic', { name: /loader/i })
@@ -29,7 +32,9 @@ describe('CardList Component', () => {
   });
 
   it('hides loading', () => {
-    renderWithRouter(<CardList items={mockSearchData} isLoading={false} error="" />);
+    renderWithRouter(
+      <CardList items={mockSearchData} isLoading={false} error="" />
+    );
 
     expect(screen.queryByRole('generic', { name: /loader/i })).toBeNull();
   });
@@ -37,13 +42,17 @@ describe('CardList Component', () => {
   it('renders error', () => {
     const error = 'I`m an error!';
 
-    renderWithRouter(<CardList items={mockSearchData} isLoading={false} error={error} />);
+    renderWithRouter(
+      <CardList items={mockSearchData} isLoading={false} error={error} />
+    );
 
     expect(screen.getByText(new RegExp(error, 'i'))).toBeInTheDocument();
   });
 
   it('error button throws error', async () => {
-    renderWithRouter(<CardList items={mockSearchData} isLoading={false} error="" />);
+    renderWithRouter(
+      <CardList items={mockSearchData} isLoading={false} error="" />
+    );
 
     const button = screen.getByRole('button', { name: /Im an error button!/i });
 

@@ -130,7 +130,9 @@ describe('Search Component', () => {
       await user.type(searchbox, typeText);
       await user.click(button);
 
-      expect(localStorage.getItem('searchValue')).toBe(JSON.stringify(typeText));
+      expect(localStorage.getItem('searchValue')).toBe(
+        JSON.stringify(typeText)
+      );
     });
 
     it('overwrites existing localStorage value when new search is performed', async () => {
