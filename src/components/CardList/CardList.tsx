@@ -1,6 +1,9 @@
-import { Component, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import './CardList.css';
 import { Card } from '../Card/Card';
+import { Loader } from '../Loader/Loader';
+import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
+import { Link, useSearchParams } from 'react-router';
 
 type data = {
   id: number;
@@ -15,71 +18,53 @@ type CardListProps = {
   error: string;
 };
 
-type CardListState = {
-  count: number;
-};
+export function CardList({ items, isLoading, error }: CardListProps) {
+  const [, setThrowError] = useState(null);
+  const [searchParams] = useSearchParams();
 
-export class CardList extends Component<CardListProps, CardListState> {
-  constructor(props: CardListProps) {
-    super(props);
+  const throwError = () => {
+    setThrowError(() => {
+      throw new Error('mew im an error');
+    });
+  };
+
+  if (isLoading) {
+    return <Loader></Loader>;
   }
 
-  renderLoading = () => {
-    return (
-      <div className="loader-wrapper">
-        <div className="loader" aria-label="loader"></div>
-      </div>
-    );
-  };
+  if (error) {
+    return <ErrorMessage message={error}></ErrorMessage>;
+  }
 
-  renderError = (errorMessage: string) => {
-    return (
-      <div>
-        <h3>Pony results!</h3>
-        <div>{errorMessage}</div>
-      </div>
-    );
-  };
-
-  throwError = () => {
-    try {
-      throw new Error('mew im an error');
-    } catch (error) {
-      this.setState(() => {
-        throw error;
-      });
-    }
-  };
-
-  render() {
-    if (this.props.isLoading) {
-      return this.renderLoading();
-    }
-
-    if (this.props.error) {
-      return this.renderError(this.props.error);
-    }
-
-    return (
-      <div>
-        <h3>Pony results!</h3>
-        <div className="card_grid">
-          <div>Name</div>
-          <div>Description</div>
-          {this.props.items.map((element) => {
-            return (
+  return (
+    <div>
+      <h3>Pony results!</h3>
+      <div className="card_grid">
+        <div>Name</div>
+        <div>Description</div>
+        {items.map((element) => {
+          return (
+            <Link
+              key={element.id}
+              to={`${element.id}?${searchParams.toString()}`}
+              style={{
+                display: 'contents',
+                textDecoration: 'none',
+                color: 'inherit',
+              }}
+            >
               <Card
                 key={element.id}
                 name={element.name}
                 description={element.occupation}
               ></Card>
-            );
-          })}
-        </div>
-        <button className="errorButton" onClick={this.throwError}>
-          Im an error button!
-        </button>
+            </Link>
+          );
+        })}
       </div>
-    );
-  }
+      <button className="errorButton" onClick={throwError}>
+        Im an error button!
+      </button>
+    </div>
+  );
 }

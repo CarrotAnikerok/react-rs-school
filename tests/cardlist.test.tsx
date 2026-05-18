@@ -1,11 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { CardList } from '../src/components/CardList/CardList';
 import { mockSearchData } from './test-utils/mocks';
 import userEvent from '@testing-library/user-event';
+import { renderWithRouter } from './test-utils/utils';
 
 describe('CardList Component', () => {
   it('renders cards', () => {
-    render(<CardList items={mockSearchData} isLoading={false} error="" />);
+    renderWithRouter(
+      <CardList items={mockSearchData} isLoading={false} error="" />
+    );
 
     expect(
       screen.getByText(new RegExp(mockSearchData[0].name, 'i'))
@@ -19,7 +22,9 @@ describe('CardList Component', () => {
   });
 
   it('renders loading', () => {
-    render(<CardList items={mockSearchData} isLoading={true} error="" />);
+    renderWithRouter(
+      <CardList items={mockSearchData} isLoading={true} error="" />
+    );
 
     expect(
       screen.getByRole('generic', { name: /loader/i })
@@ -27,7 +32,9 @@ describe('CardList Component', () => {
   });
 
   it('hides loading', () => {
-    render(<CardList items={mockSearchData} isLoading={false} error="" />);
+    renderWithRouter(
+      <CardList items={mockSearchData} isLoading={false} error="" />
+    );
 
     expect(screen.queryByRole('generic', { name: /loader/i })).toBeNull();
   });
@@ -35,13 +42,17 @@ describe('CardList Component', () => {
   it('renders error', () => {
     const error = 'I`m an error!';
 
-    render(<CardList items={mockSearchData} isLoading={false} error={error} />);
+    renderWithRouter(
+      <CardList items={mockSearchData} isLoading={false} error={error} />
+    );
 
     expect(screen.getByText(new RegExp(error, 'i'))).toBeInTheDocument();
   });
 
   it('error button throws error', async () => {
-    render(<CardList items={mockSearchData} isLoading={false} error="" />);
+    renderWithRouter(
+      <CardList items={mockSearchData} isLoading={false} error="" />
+    );
 
     const button = screen.getByRole('button', { name: /Im an error button!/i });
 

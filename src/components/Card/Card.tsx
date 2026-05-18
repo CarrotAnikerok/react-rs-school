@@ -1,4 +1,4 @@
-import { Component, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 type CardProps = {
   children?: ReactNode;
@@ -6,21 +6,11 @@ type CardProps = {
   description: string;
 };
 
-type CardState = {
-  count: number;
-};
-
-export class Card extends Component<CardProps, CardState> {
-  constructor(props: CardProps) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <>
-        <div data-testid="card-name"> {this.props.name} </div>
-        <div> {this.props.description} </div>
-      </>
-    );
-  }
+export function Card({ name, description }: CardProps) {
+  return (
+    <>
+      <div data-testid="card-name"> {name} </div>
+      <div> {description} </div>
+    </>
+  );
 }

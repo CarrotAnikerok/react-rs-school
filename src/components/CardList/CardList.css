@@ -5,30 +5,14 @@
   border-left: 3px dotted violet;
 }
 
-.card_grid > div {
+.card_grid div {
   border-bottom: 3px dotted violet;
   border-right: 3px dotted violet;
   padding: 10px;
 }
 
-.card_grid > div:nth-child(4n-3),
-.card_grid > div:nth-child(4n-2) {
+.card_grid > a:nth-child(2n-1) > div {
   background-color: #fbf6a3;
-}
-
-.loader-wrapper {
-  padding: 30px;
-}
-
-.loader {
-  width: 48px;
-  height: 48px;
-  border: 5px solid violet;
-  border-bottom-color: #add8e6;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
 }
 
 @keyframes rotation {

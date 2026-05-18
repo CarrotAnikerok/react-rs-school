@@ -15,7 +15,7 @@ describe('Search Component', () => {
     it('initial onSearch call', () => {
       render(<Search onSearch={mockSearch} />);
 
-      expect(mockSearch).toHaveBeenCalledWith();
+      expect(mockSearch).toHaveBeenCalledWith('all');
     });
   });
 
@@ -38,7 +38,7 @@ describe('Search Component', () => {
 
     it('displays saved search from localStorage', () => {
       const search = 'rainbow dash';
-      localStorage.setItem('searchValue', search);
+      localStorage.setItem('searchValue', JSON.stringify(search));
 
       render(<Search onSearch={mockSearch}></Search>);
       const searchbox = screen.getByRole<HTMLInputElement>('searchbox', {
@@ -112,7 +112,7 @@ describe('Search Component', () => {
   describe('Local Storage', () => {
     it('triggers search callback with parameters from localStorage on load', async () => {
       const search = 'pinkie';
-      localStorage.setItem('searchValue', search);
+      localStorage.setItem('searchValue', JSON.stringify(search));
 
       render(<Search onSearch={mockSearch}></Search>);
 
@@ -130,12 +130,14 @@ describe('Search Component', () => {
       await user.type(searchbox, typeText);
       await user.click(button);
 
-      expect(localStorage.getItem('searchValue')).toBe(typeText);
+      expect(localStorage.getItem('searchValue')).toBe(
+        JSON.stringify(typeText)
+      );
     });
 
     it('overwrites existing localStorage value when new search is performed', async () => {
       const search = 'rainbow dash';
-      localStorage.setItem('searchValue', search);
+      localStorage.setItem('searchValue', JSON.stringify(search));
 
       render(<Search onSearch={mockSearch}></Search>);
       const searchbox = screen.getByRole<HTMLInputElement>('searchbox', {
@@ -145,12 +147,12 @@ describe('Search Component', () => {
       await user.clear(searchbox);
       await user.click(button);
 
-      expect(localStorage.getItem('searchValue')).toBe('');
+      expect(localStorage.getItem('searchValue')).toBe(JSON.stringify(''));
 
       await user.type(searchbox, search);
       await user.click(button);
 
-      expect(localStorage.getItem('searchValue')).toBe(search);
+      expect(localStorage.getItem('searchValue')).toBe(JSON.stringify(search));
     });
   });
 });

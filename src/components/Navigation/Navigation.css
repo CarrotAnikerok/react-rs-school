@@ -1,0 +1,13 @@
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  border-bottom: solid 1px;
+  padding-bottom: 1rem;
+}
+
+.active {
+  font-weight: bold;
+}

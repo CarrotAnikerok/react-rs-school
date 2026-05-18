@@ -10,6 +10,7 @@ export default mergeConfig(
       environment: 'jsdom',
       setupFiles: './tests/test-utils/setup.ts',
       coverage: {
+        provider: 'istanbul',
         thresholds: {
           global: {
             statements: 80,
