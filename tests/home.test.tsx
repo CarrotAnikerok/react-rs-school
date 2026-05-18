@@ -1,11 +1,7 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { mockSearchData } from './test-utils/mocks';
 import { Home } from '../src/Home/Home';
-import { MemoryRouter } from 'react-router';
-
-const renderWithRouter = (ui: React.ReactElement) => {
-  return render(<MemoryRouter>{ui}</MemoryRouter>);
-};
+import { renderWithRouter } from './test-utils/utils';
 
 describe('Home Component', () => {
   beforeAll(() => {
