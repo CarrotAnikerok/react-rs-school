@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { CardList } from '../components/CardList/CardList';
 import { ErrorBoundary } from '../components/ErrorBoundary/ErrorBoundary';
 import { Search } from '../components/Search/Search';
-import { Outlet, useMatch, useSearchParams } from 'react-router';
+import { Outlet, useMatch, useNavigate, useSearchParams } from 'react-router';
 import { Pagination } from '../components/Pagination/Pagination';
 import './Home.css';
 
@@ -23,6 +23,7 @@ export function Home() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const limit = useRef<number>(10);
+    const navigate = useNavigate();
 
     const [currentQuery, setCurrentQuery] = useState('all');
     const [searchParams, setSearchParams] = useSearchParams();
@@ -59,20 +60,21 @@ export function Home() {
     }, [currentQuery, currentPage, loadData])
 
     const handleSearch = useCallback((query: string = 'all') => {
-        setCurrentQuery(query);
-
-        setSearchParams((prev) => {
-            prev.set('page', '1');
-            return prev;
-        })
+        setCurrentQuery((prevQuery) => {
+            if (prevQuery !== query) {
+                setSearchParams((prev) => {
+                    prev.set('page', '1');
+                    return prev;
+                })
+            }
+            return query;
+        });
     }, [setSearchParams]);
 
     const changePage = (newPage: number) => {
-        setSearchParams((prev) => {
-            prev.set('page', String(newPage));
-            console.log('new page is ' + String(newPage));
-            return prev;
-        })
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('page', String(newPage));
+        navigate(`/?${newParams.toString()}`);
     }
   
     const isDetailsOpen = !!useMatch('/:itemId'); 

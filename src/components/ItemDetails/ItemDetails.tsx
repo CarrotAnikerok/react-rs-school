@@ -33,14 +33,16 @@ export function ItemDetails() {
         <div>
             <Link to={`/?page=${page}`} className="exit">✖</Link>
             <h2>{item.name}</h2>
-            <b>Description</b>
-            <p>{item.occupation}</p>
-            <b>Sex</b>
-            <p>{item.sex}</p>
-            <b>Residence</b>
-            <p>{item.residence}</p>
-            <b>Kind</b>
-            <p>{item.kind.join(', ')}</p>
+            <div className="info">
+                <b>Description</b>
+                <p>{item.occupation}</p>
+                <b>Sex</b>
+                <p>{item.sex}</p>
+                <b>Residence</b>
+                <p>{item.residence}</p>
+                <b>Kind</b>
+                <p>{item.kind.join(', ')}</p>
+            </div>
             <img src={item.image[0]}/>
         </div>
     )
