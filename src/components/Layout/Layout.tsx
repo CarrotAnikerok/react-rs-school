@@ -13,17 +13,17 @@ export function Layout() {
 
   return (
     <>
-    <ThemeContext value={theme}>
-       <div className={`app-container ${theme}`}>
-        <ThemeUpdateContext value={setTheme}>
-          <ThemeSwitch></ThemeSwitch>
-        </ThemeUpdateContext>
-        <Navigation style={style}></Navigation>
-        <main>
-          <Outlet />
-        </main>
-       </div>
-    </ThemeContext>
+      <ThemeContext value={theme}>
+        <div className={`app-container ${theme}`}>
+          <ThemeUpdateContext value={setTheme}>
+            <ThemeSwitch></ThemeSwitch>
+          </ThemeUpdateContext>
+          <Navigation style={style}></Navigation>
+          <main>
+            <Outlet />
+          </main>
+        </div>
+      </ThemeContext>
     </>
   );
 }

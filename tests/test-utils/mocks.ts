@@ -6,7 +6,7 @@ export const mockSearchData = [
     sex: 'female',
     residence: 'ponyville',
     kind: ['unicorn', 'alicorn'],
-    image: []
+    image: [],
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const mockSearchData = [
     sex: 'female',
     residence: 'ponyville',
     kind: ['earth'],
-    image: []
+    image: [],
   },
   {
     id: 3,
@@ -24,6 +24,6 @@ export const mockSearchData = [
     sex: 'female',
     residence: 'ponyville',
     kind: ['pegasus'],
-    image: []
+    image: [],
   },
 ];

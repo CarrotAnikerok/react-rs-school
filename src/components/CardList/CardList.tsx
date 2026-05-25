@@ -9,8 +9,7 @@ import { useAppSelector } from '../../app/hooks';
 export function CardList() {
   const [, setThrowError] = useState(null);
   const [searchParams] = useSearchParams();
- const { list, isLoading, error } = useAppSelector(state => state.home);
-
+  const { list, isLoading, error } = useAppSelector((state) => state.home);
 
   const throwError = () => {
     setThrowError(() => {

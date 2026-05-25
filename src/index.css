@@ -41,8 +41,11 @@
   --item-text: #b9daf0;
 }
 
-body, .app-container {
-  transition: background-color 0.3s ease, color 0.3s ease;
+body,
+.app-container {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 #root {

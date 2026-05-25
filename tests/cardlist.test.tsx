@@ -6,16 +6,13 @@ import { renderWithReduxAndRouter } from './test-utils/utils';
 
 describe('CardList Component', () => {
   it('renders cards', () => {
-    renderWithReduxAndRouter(
-      <CardList />,
-      {
-        preloadedState: {
-          list: mockSearchData,
-          isLoading: false,
-          error: '',
-        }
-      }
-    );
+    renderWithReduxAndRouter(<CardList />, {
+      preloadedState: {
+        list: mockSearchData,
+        isLoading: false,
+        error: '',
+      },
+    });
 
     expect(
       screen.getByText(new RegExp(mockSearchData[0].name, 'i'))
@@ -29,16 +26,13 @@ describe('CardList Component', () => {
   });
 
   it('renders loading', () => {
-    renderWithReduxAndRouter(
-      <CardList />,
-      {
-        preloadedState: {
-          list: [],
-          isLoading: true,
-          error: '',
-        }
-      }
-    );
+    renderWithReduxAndRouter(<CardList />, {
+      preloadedState: {
+        list: [],
+        isLoading: true,
+        error: '',
+      },
+    });
 
     expect(
       screen.getByRole('generic', { name: /loader/i })
@@ -46,9 +40,7 @@ describe('CardList Component', () => {
   });
 
   it('hides loading', () => {
-    renderWithReduxAndRouter(
-      <CardList />
-    );
+    renderWithReduxAndRouter(<CardList />);
 
     expect(screen.queryByRole('generic', { name: /loader/i })).toBeNull();
   });
@@ -56,24 +48,19 @@ describe('CardList Component', () => {
   it('renders error', () => {
     const errorText = 'I`m an error!';
 
-    renderWithReduxAndRouter(
-      <CardList />,
-      {
-        preloadedState: {
-          list: [],
-          isLoading: false,
-          error: errorText, // Передаем нашу строку ошибки
-        }
-      }
-    );
+    renderWithReduxAndRouter(<CardList />, {
+      preloadedState: {
+        list: [],
+        isLoading: false,
+        error: errorText, // Передаем нашу строку ошибки
+      },
+    });
 
     expect(screen.getByText(new RegExp(errorText, 'i'))).toBeInTheDocument();
   });
 
   it('error button throws error', async () => {
-    renderWithReduxAndRouter(
-      <CardList />
-    );
+    renderWithReduxAndRouter(<CardList />);
 
     const button = screen.getByRole('button', { name: /Im an error button!/i });
 
