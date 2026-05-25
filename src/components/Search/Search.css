@@ -6,7 +6,7 @@ form {
 }
 
 label {
-  color: violet;
+  color: var(--text-h);
   font-size: 30px;
   font-weight: bold;
   margin: 10px;

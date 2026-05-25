@@ -6,8 +6,6 @@ import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { Link, useSearchParams } from 'react-router';
 import { useAppSelector } from '../../app/hooks';
 
-
-
 export function CardList() {
   const [, setThrowError] = useState(null);
   const [searchParams] = useSearchParams();

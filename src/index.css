@@ -2,8 +2,10 @@
 
 :root {
   --text: #6b6375;
-  --text-h: #08060d;
+  --text-h: violet;
   --bg: #fdfbd4;
+  --second-bg: #fbf6a3;
+  --item-text: #ffb6c1;
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
@@ -14,8 +16,6 @@
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -26,8 +26,26 @@
   }
 }
 
+.app-container {
+  /* Теперь именно контейнер отвечает за покраску фона и текста */
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh; /* Растягиваем его на всю высоту экрана */
+}
+
+.app-container.dark {
+  --text: #b3a9bc;
+  --text-h: #fdfbd4;
+  --bg: #1a1625;
+  --second-bg: #3d2973;
+  --item-text: #b9daf0;
+}
+
+body, .app-container {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 #root {
-  width: 1126px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -39,11 +57,12 @@
 
 body {
   margin: 0;
+  padding: 0;
 }
 
 h1,
 h2 {
-  font-family: 'var(--heading)';
+  font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
 }
