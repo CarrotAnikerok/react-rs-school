@@ -1,12 +1,12 @@
 h2 {
-  color: violet;
+  color: var(--text-h);
   margin: 10px;
   font-family: var(--purse);
   font-size: 45px;
 }
 
 b {
-  color: #ffb6c1;
+  color: var(--item-text);
   font-family: var(--playfair);
   font-size: 20px;
 }
