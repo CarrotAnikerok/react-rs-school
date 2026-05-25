@@ -29,8 +29,7 @@ export const fetchData = createAsyncThunk(
             );
 
             if (!response.ok) {
-                getErrorMessage(response.status)
-                return thunkAPI.rejectWithValue(`Server error: ${response.status}`);
+                return thunkAPI.rejectWithValue(getErrorMessage(response.status));
             }
 
             const data = await response.json();

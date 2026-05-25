@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import { mockSearchData } from './test-utils/mocks';
 import { Home } from '../src/components/Home/Home';
-import { renderWithRouter } from './test-utils/utils';
+import { renderWithReduxAndRouter } from './test-utils/utils';
 
 describe('Home Component', () => {
   beforeAll(() => {
@@ -23,7 +23,7 @@ describe('Home Component', () => {
       const fetchMock = vi.mocked(fetch);
       fetchMock.mockReturnValue(pendingPromise);
 
-      renderWithRouter(<Home />);
+      renderWithReduxAndRouter(<Home />);
 
       expect(
         screen.getByRole('generic', { name: /loader/i })
@@ -46,7 +46,7 @@ describe('Home Component', () => {
     it('call api with correct parameters', async () => {
       const fetchMock = vi.mocked(fetch);
 
-      renderWithRouter(<Home />);
+      renderWithReduxAndRouter(<Home />);
 
       await waitFor(() => {
         expect(fetchMock).toHaveBeenCalledWith(
@@ -62,7 +62,7 @@ describe('Home Component', () => {
         json: async () => ({ data: mockSearchData }),
       } as Response);
 
-      renderWithRouter(<Home />);
+      renderWithReduxAndRouter(<Home />);
 
       expect(
         await screen.findByText(new RegExp(mockSearchData[0].name, 'i'))
@@ -77,7 +77,7 @@ describe('Home Component', () => {
         status: 400,
       } as Response);
 
-      renderWithRouter(<Home />);
+      renderWithReduxAndRouter(<Home />);
 
       expect(
         await screen.findByText(/sorry, client error/i)
@@ -92,7 +92,7 @@ describe('Home Component', () => {
         status: 500,
       } as Response);
 
-      renderWithRouter(<Home />);
+      renderWithReduxAndRouter(<Home />);
 
       expect(
         await screen.findByText(/sorry, server error/i)
@@ -107,7 +107,7 @@ describe('Home Component', () => {
         status: 300,
       } as Response);
 
-      renderWithRouter(<Home />);
+      renderWithReduxAndRouter(<Home />);
 
       expect(
         await screen.findByText(/sorry, some weird error has occurred/i)
@@ -119,7 +119,7 @@ describe('Home Component', () => {
 
       fetchMock.mockRejectedValue(new Error('Failed to fetch'));
 
-      renderWithRouter(<Home />);
+      renderWithReduxAndRouter(<Home />);
 
       expect(
         await screen.findByText(/error of access or network/i)

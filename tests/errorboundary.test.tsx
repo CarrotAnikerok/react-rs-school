@@ -2,15 +2,14 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ErrorBoundary } from '../src/components/ErrorBoundary/ErrorBoundary';
 import { CardList } from '../src/components/CardList/CardList';
-import { mockSearchData } from './test-utils/mocks';
-import { renderWithRouter } from './test-utils/utils';
+import { renderWithReduxAndRouter } from './test-utils/utils';
 
 describe('ErrorBoundary Component', () => {
   it('error button throws error', async () => {
     const fallback = 'Something went wrong with ponies';
-    renderWithRouter(
+    renderWithReduxAndRouter(
       <ErrorBoundary fallback={<p className="errorMessage">{fallback}</p>}>
-        <CardList items={mockSearchData} isLoading={false} error="" />
+        <CardList />
       </ErrorBoundary>
     );
 
@@ -24,9 +23,9 @@ describe('ErrorBoundary Component', () => {
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
     const fallback = 'Something went wrong with ponies';
-    renderWithRouter(
+    renderWithReduxAndRouter(
       <ErrorBoundary fallback={<p className="errorMessage">{fallback}</p>}>
-        <CardList items={mockSearchData} isLoading={false} error="" />
+        <CardList />
       </ErrorBoundary>
     );
 
