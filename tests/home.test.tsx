@@ -1,6 +1,6 @@
 import { screen, waitFor } from '@testing-library/react';
 import { mockSearchData } from './test-utils/mocks';
-import { Home } from '../src/Home/Home';
+import { Home } from '../src/components/Home/Home';
 import { renderWithRouter } from './test-utils/utils';
 
 describe('Home Component', () => {

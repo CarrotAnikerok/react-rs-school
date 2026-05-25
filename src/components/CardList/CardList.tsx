@@ -1,26 +1,18 @@
-import { useState, type ReactNode } from 'react';
+import { useState } from 'react';
 import './CardList.css';
 import { Card } from '../Card/Card';
 import { Loader } from '../Loader/Loader';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { Link, useSearchParams } from 'react-router';
+import { useAppSelector } from '../../app/hooks';
 
-type data = {
-  id: number;
-  name: string;
-  occupation: string;
-};
 
-type CardListProps = {
-  children?: ReactNode;
-  items: data[];
-  isLoading: boolean;
-  error: string;
-};
 
-export function CardList({ items, isLoading, error }: CardListProps) {
+export function CardList() {
   const [, setThrowError] = useState(null);
   const [searchParams] = useSearchParams();
+ const { list, isLoading, error } = useAppSelector(state => state.home);
+
 
   const throwError = () => {
     setThrowError(() => {
@@ -42,7 +34,7 @@ export function CardList({ items, isLoading, error }: CardListProps) {
       <div className="card_grid">
         <div>Name</div>
         <div>Description</div>
-        {items.map((element) => {
+        {list.map((element) => {
           return (
             <Link
               key={element.id}
