@@ -1,10 +1,8 @@
-import { act, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { mockSearchData } from './test-utils/mocks';
 import { Home } from '../src/components/Home/Home';
 import { renderWithReduxAndRouter } from './test-utils/utils';
 import * as ponyApiModule from '../src/services/pony';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router';
 
 const useGetItemListQuerySpy = vi.spyOn(ponyApiModule, 'useGetItemListQuery');
 type FullHookResult = ReturnType<typeof ponyApiModule.useGetItemListQuery>;
@@ -33,7 +31,7 @@ describe('Home Component', () => {
 
     it('handles successful API response', async () => {
       useGetItemListQuerySpy.mockReturnValue({
-        data: { data: mockSearchData }, 
+        data: { data: mockSearchData },
         error: undefined,
         isLoading: false,
         isFetching: false,

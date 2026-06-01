@@ -13,7 +13,9 @@ describe('CardList Component', () => {
   };
 
   it('renders cards', () => {
-    renderWithReduxAndRouter(<CardList {...defaultProps} list={mockSearchData} />);
+    renderWithReduxAndRouter(
+      <CardList {...defaultProps} list={mockSearchData} />
+    );
 
     expect(
       screen.getByText(new RegExp(mockSearchData[0].name, 'i'))
@@ -48,7 +50,9 @@ describe('CardList Component', () => {
 
     renderWithReduxAndRouter(<CardList {...defaultProps} error={mockError} />);
 
-    expect(screen.getByText(new RegExp(/sorry, client error/i, 'i'))).toBeInTheDocument();
+    expect(
+      screen.getByText(new RegExp(/sorry, client error/i, 'i'))
+    ).toBeInTheDocument();
     expect(screen.getByText(/404/i)).toBeInTheDocument();
   });
 

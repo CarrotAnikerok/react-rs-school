@@ -23,7 +23,7 @@ export const renderWithReduxAndRouter = (
   const store = configureStore({
     reducer: {
       home: homeReducer,
-      [ponyApi.reducerPath]: ponyApi.reducer
+      [ponyApi.reducerPath]: ponyApi.reducer,
     },
     preloadedState: {
       home: {
