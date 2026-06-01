@@ -1,0 +1,6 @@
+.about {
+  border: 3px dotted var(--text-h);
+  background-color: var(--second-bg);
+  width: 33%;
+  margin: 20px auto;
+}

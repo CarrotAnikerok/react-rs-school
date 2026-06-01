@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Purple+Purse&display=swap');
+
+:root {
+  --text: #6b6375;
+  --text-h: violet;
+  --bg: #fdfbd4;
+  --second-bg: #fbf6a3;
+  --item-text: #ffb6c1;
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+  --purse: 'Purple Purse', serif;
+  --playfair: 'Playfair Display', serif;
+  --comic-sans: 'Comic Relief', serif;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+.app-container {
+  /* Теперь именно контейнер отвечает за покраску фона и текста */
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh; /* Растягиваем его на всю высоту экрана */
+}
+
+.app-container.dark {
+  --text: #b3a9bc;
+  --text-h: #fdfbd4;
+  --bg: #1a1625;
+  --second-bg: #3d2973;
+  --item-text: #b9daf0;
+}
+
+body,
+.app-container {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+
+.errorMessage {
+  margin: 10px;
+}

@@ -1,0 +1,35 @@
+.card_grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  border-top: 3px dotted var(--text-h);
+  border-left: 3px dotted var(--text-h);
+}
+
+.card_grid div {
+  border-bottom: 3px dotted var(--text-h);
+  border-right: 3px dotted var(--text-h);
+  padding: 10px;
+}
+
+.card_grid > a:nth-child(2n-1) > div {
+  background-color: var(--second-bg);
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.errorButton {
+  float: inline-end;
+  margin: 10px;
+  opacity: 30%;
+  background-color: var(--second-bg);
+  color: var(--text);
+  border-radius: 10%;
+  border-color: var(--text-h);
+}
