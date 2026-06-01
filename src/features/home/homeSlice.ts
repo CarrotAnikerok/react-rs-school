@@ -1,89 +1,68 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice, type SerializedError } from '@reduxjs/toolkit';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-export interface ponyData {
-  id: number;
-  name: string;
-  occupation: string;
-  sex: string;
-  residence: string;
-  kind: string[];
-  image: string[];
+export interface PonyListing {
+    status: number;
+    data: PonyData[];
+}
+
+export interface PonyData {
+    id: number;
+    name: string;
+    occupation: string;
+    sex: string;
+    residence: string;
+    kind: string[];
+    image: string[];
 }
 
 export interface HomeState {
-  list: ponyData[];
-  isLoading: boolean;
-  error: string;
-  currentQuery: string;
+    list: PonyData[];
+    isLoading: boolean;
+    error: string;
+    currentQuery: string;
 }
 
 const initialState: HomeState = {
-  list: [],
-  isLoading: true,
-  error: '',
-  currentQuery: 'all',
+    list: [],
+    isLoading: true,
+    error: '',
+    currentQuery: 'all',
 };
 
-export const fetchData = createAsyncThunk(
-  'data/fetchData',
-  async (
-    { page, query, limit }: { page: number; query: string; limit: number },
-    thunkAPI
-  ) => {
-    try {
-      const offset = (page - 1) * limit;
-      const response = await fetch(
-        `https://ponyapi.net/v1/character/${query}?limit=${limit}&offset=${offset}`
-      );
+export const getErrorMessage = (error: FetchBaseQueryError | SerializedError) => {
+    if ('status' in error) {
+        const status = error.status;
 
-      if (!response.ok) {
-        return thunkAPI.rejectWithValue(getErrorMessage(response.status));
-      }
+        if (typeof status === 'number') {
+            const category = Math.floor(status / 100);
+            if (category === 5) {
+                return `Sorry, server error :( ${status}`;
+            } else if (category === 4) {
+                return `Sorry, client error :( ${status})`;
+            }
 
-      const data = await response.json();
-      return data.data;
-    } catch {
-      return thunkAPI.rejectWithValue('Error of access or network :(');
+            return `Sorry, some weird error has occurred :( ${status})`;
+        }
+
+        if (status === 'FETCH_ERROR') {
+            return 'No internet connection or server is unreachable. Please check your network.';
+        }
+
+        return `Network error: ${status}`;
     }
-  }
-);
 
-const getErrorMessage = (status: number) => {
-  const category = Math.floor(status / 100);
-
-  if (category === 5) {
-    return `Sorry, server error :( ${status}`;
-  } else if (category === 4) {
-    return `Sorry, client error :( ${status})`;
-  }
-
-  return `Sorry, some weird error has occurred :( ${status})`;
+    return error.message || 'Sorry, some weird error has occurred :(';
 };
 
 const homeSlice = createSlice({
-  name: 'home',
-  initialState,
-  reducers: {
-    setQuery: (state, action) => {
-      state.currentQuery = action.payload;
-    },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchData.pending, (state) => {
-        state.isLoading = true;
-        state.error = '';
-      })
-      .addCase(fetchData.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.list = action.payload;
-      })
-      .addCase(fetchData.rejected, (state, action) => {
-        state.isLoading = false;
-        state.list = [];
-        state.error = action.payload as string;
-      });
-  },
+    name: 'home',
+    initialState,
+    reducers: {
+        setQuery: (state, action) => {
+            state.currentQuery = action.payload;
+        },
+    }
 });
 
 export const { setQuery } = homeSlice.actions;

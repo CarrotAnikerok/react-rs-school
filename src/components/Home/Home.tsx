@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { CardList } from '../CardList/CardList';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import { Search } from '../Search/Search';
@@ -6,19 +6,18 @@ import {
   Outlet,
   useMatch,
   useNavigate,
-  useParams,
   useSearchParams,
 } from 'react-router';
 import { Pagination } from '../Pagination/Pagination';
 import './Home.css';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { fetchData, setQuery } from '../../features/home/homeSlice';
-import { NotFound } from '../NotFound/NotFound';
+import { setQuery } from '../../features/home/homeSlice';
+import { useGetItemListQuery } from '../../services/pony';
 
 export function Home() {
   const dispatch = useAppDispatch();
 
-  const { list, isLoading, error, currentQuery } = useAppSelector(
+  const { currentQuery } = useAppSelector(
     (state) => state.home
   );
 
@@ -27,15 +26,8 @@ export function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
-  useEffect(() => {
-    dispatch(
-      fetchData({
-        page: currentPage,
-        query: currentQuery,
-        limit: limit.current,
-      })
-    );
-  }, [currentQuery, currentPage, dispatch]);
+  const offset = (currentPage - 1) * limit.current;
+  const { data, error, isLoading, isFetching } = useGetItemListQuery({query: currentQuery, limit: limit.current, offset});
 
   const handleSearch = useCallback(
     (query: string = 'all') => {
@@ -58,18 +50,13 @@ export function Home() {
 
   const isDetailsOpen = !!useMatch('/:itemId');
 
-  const { itemId } = useParams<{ itemId: string }>();
-  const isItemExist = list.some((element) => element.id.toString() === itemId);
-
-  if (!isLoading && list.length > 0 && itemId && !isItemExist) {
-    return <NotFound />;
-  }
+  const list = data?.data;
 
   return (
     <div className={`home ${isDetailsOpen ? 'has-details' : ''}`}>
       <div className="list-part">
         <Search onSearch={handleSearch}></Search>
-        {!isLoading && !error && list.length > 0 ? (
+        {!isLoading && !error && list &&  list.length > 0 ? (
           <Pagination
             currentPage={currentPage}
             changePage={changePage}
@@ -81,7 +68,7 @@ export function Home() {
             <p className="errorMessage">Something went wrong with ponies :(</p>
           }
         >
-          <CardList></CardList>
+          <CardList list={list || []} isLoading={isLoading || isFetching} error={error}></CardList>
         </ErrorBoundary>
       </div>
       <div className="details">

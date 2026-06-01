@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import './CardList.css';
 import { Card } from '../Card/Card';
 import { Loader } from '../Loader/Loader';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { Link, useSearchParams } from 'react-router';
-import { useAppSelector } from '../../app/hooks';
+import { getErrorMessage, type PonyData } from '../../features/home/homeSlice';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import type { SerializedError } from '@reduxjs/toolkit';
 
-export function CardList() {
+type CardListProps = {
+  children?: ReactNode;
+  list: PonyData[];
+  isLoading: boolean;
+  error: FetchBaseQueryError | SerializedError | undefined;
+};
+
+export function CardList({ list, isLoading, error }: CardListProps) {
   const [, setThrowError] = useState(null);
   const [searchParams] = useSearchParams();
-  const { list, isLoading, error } = useAppSelector((state) => state.home);
 
   const throwError = () => {
     setThrowError(() => {
@@ -22,7 +30,8 @@ export function CardList() {
   }
 
   if (error) {
-    return <ErrorMessage message={error}></ErrorMessage>;
+    const textError = getErrorMessage(error); 
+    return <ErrorMessage message={textError}></ErrorMessage>;
   }
 
   return (

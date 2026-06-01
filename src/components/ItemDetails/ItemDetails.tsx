@@ -1,27 +1,27 @@
 import { Link, useParams, useSearchParams } from 'react-router';
 import { Loader } from '../Loader/Loader';
 import './ItemDetails.css';
-import { useAppSelector } from '../../app/hooks';
-import type { ponyData } from '../../features/home/homeSlice';
+import { useGetItemDetailsQuery } from '../../services/pony';
 
 export function ItemDetails() {
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page') || '1';
   const { itemId } = useParams<{ itemId: string }>();
 
-  const { list, isLoading } = useAppSelector((state) => state.home);
+  const { data, error, isLoading, isFetching } = useGetItemDetailsQuery({id: itemId || ''}, { skip: !itemId });
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return <Loader></Loader>;
   }
 
-  const item: ponyData | undefined = list.find(
-    (element) => element.id.toString() === itemId
-  );
-
-  if (!item) {
+  if (error || !data) {
     throw new Response('Not Found', { status: 404 });
   }
+
+  const item = data.data[0];
+
+  console.log('data is ' + JSON.stringify(item));
+  console.log('kind is ' + JSON.stringify(item.kind));
 
   return (
     <div>
