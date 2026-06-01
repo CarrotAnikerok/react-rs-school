@@ -3,16 +3,17 @@ import { CardList } from '../src/components/CardList/CardList';
 import { mockSearchData } from './test-utils/mocks';
 import userEvent from '@testing-library/user-event';
 import { renderWithReduxAndRouter } from './test-utils/utils';
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 describe('CardList Component', () => {
+  const defaultProps = {
+    list: [],
+    isLoading: false,
+    error: undefined,
+  };
+
   it('renders cards', () => {
-    renderWithReduxAndRouter(<CardList />, {
-      preloadedState: {
-        list: mockSearchData,
-        isLoading: false,
-        error: '',
-      },
-    });
+    renderWithReduxAndRouter(<CardList {...defaultProps} list={mockSearchData} />);
 
     expect(
       screen.getByText(new RegExp(mockSearchData[0].name, 'i'))
@@ -26,13 +27,7 @@ describe('CardList Component', () => {
   });
 
   it('renders loading', () => {
-    renderWithReduxAndRouter(<CardList />, {
-      preloadedState: {
-        list: [],
-        isLoading: true,
-        error: '',
-      },
-    });
+    renderWithReduxAndRouter(<CardList {...defaultProps} isLoading={true} />);
 
     expect(
       screen.getByRole('generic', { name: /loader/i })
@@ -40,27 +35,25 @@ describe('CardList Component', () => {
   });
 
   it('hides loading', () => {
-    renderWithReduxAndRouter(<CardList />);
+    renderWithReduxAndRouter(<CardList {...defaultProps} />);
 
     expect(screen.queryByRole('generic', { name: /loader/i })).toBeNull();
   });
 
   it('renders error', () => {
-    const errorText = 'I`m an error!';
+    const mockError: FetchBaseQueryError = {
+      status: 404,
+      data: { message: 'Not Found' },
+    };
 
-    renderWithReduxAndRouter(<CardList />, {
-      preloadedState: {
-        list: [],
-        isLoading: false,
-        error: errorText, // Передаем нашу строку ошибки
-      },
-    });
+    renderWithReduxAndRouter(<CardList {...defaultProps} error={mockError} />);
 
-    expect(screen.getByText(new RegExp(errorText, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(/sorry, client error/i, 'i'))).toBeInTheDocument();
+    expect(screen.getByText(/404/i)).toBeInTheDocument();
   });
 
   it('error button throws error', async () => {
-    renderWithReduxAndRouter(<CardList />);
+    renderWithReduxAndRouter(<CardList {...defaultProps} />);
 
     const button = screen.getByRole('button', { name: /Im an error button!/i });
 

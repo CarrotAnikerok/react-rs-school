@@ -5,11 +5,17 @@ import { CardList } from '../src/components/CardList/CardList';
 import { renderWithReduxAndRouter } from './test-utils/utils';
 
 describe('ErrorBoundary Component', () => {
+  const defaultCardListProps = {
+    list: [],
+    isLoading: false,
+    error: undefined,
+  };
+
   it('error button throws error', async () => {
     const fallback = 'Something went wrong with ponies';
     renderWithReduxAndRouter(
       <ErrorBoundary fallback={<p className="errorMessage">{fallback}</p>}>
-        <CardList />
+        <CardList {...defaultCardListProps} />
       </ErrorBoundary>
     );
 
@@ -25,7 +31,7 @@ describe('ErrorBoundary Component', () => {
     const fallback = 'Something went wrong with ponies';
     renderWithReduxAndRouter(
       <ErrorBoundary fallback={<p className="errorMessage">{fallback}</p>}>
-        <CardList />
+        <CardList {...defaultCardListProps} />
       </ErrorBoundary>
     );
 

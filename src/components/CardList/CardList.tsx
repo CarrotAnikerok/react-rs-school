@@ -30,7 +30,7 @@ export function CardList({ list, isLoading, error }: CardListProps) {
   }
 
   if (error) {
-    const textError = getErrorMessage(error); 
+    const textError = getErrorMessage(error);
     return <ErrorMessage message={textError}></ErrorMessage>;
   }
 

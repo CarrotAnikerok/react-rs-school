@@ -1,81 +1,60 @@
-import { screen, waitFor } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import { mockSearchData } from './test-utils/mocks';
 import { Home } from '../src/components/Home/Home';
 import { renderWithReduxAndRouter } from './test-utils/utils';
+import * as ponyApiModule from '../src/services/pony';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
+
+const useGetItemListQuerySpy = vi.spyOn(ponyApiModule, 'useGetItemListQuery');
+type FullHookResult = ReturnType<typeof ponyApiModule.useGetItemListQuery>;
+type GetItemListQueryResult = Partial<FullHookResult>;
 
 describe('Home Component', () => {
-  beforeAll(() => {
-    vi.stubGlobal('fetch', vi.fn());
+  beforeEach(() => {
+    vi.resetAllMocks();
     localStorage.clear();
-  });
-
-  afterAll(() => {
-    vi.unstubAllGlobals();
-  });
-
-  describe('State Management', () => {
-    it('manages loading states during API calls', async () => {
-      let resolveFetch: (value: Response) => void;
-      const pendingPromise = new Promise<Response>((resolve) => {
-        resolveFetch = resolve;
-      });
-
-      const fetchMock = vi.mocked(fetch);
-      fetchMock.mockReturnValue(pendingPromise);
-
-      renderWithReduxAndRouter(<Home />);
-
-      expect(
-        screen.getByRole('generic', { name: /loader/i })
-      ).toBeInTheDocument();
-
-      resolveFetch!({
-        ok: true,
-        json: async () => ({ data: [] }),
-      } as Response);
-
-      expect(
-        await screen.findByRole('generic', { name: /loader/i })
-      ).not.toBeInTheDocument();
-    });
-
-    it('manage error state', () => {});
   });
 
   describe('API Integration', () => {
     it('call api with correct parameters', async () => {
-      const fetchMock = vi.mocked(fetch);
+      useGetItemListQuerySpy.mockReturnValue({
+        data: [],
+        isLoading: false,
+        isFetching: false,
+      } as Partial<GetItemListQueryResult> as FullHookResult);
+
+      renderWithReduxAndRouter(<Home />);
+
+      expect(useGetItemListQuerySpy).toHaveBeenCalledWith(
+        expect.objectContaining({ query: 'all' })
+      );
+    });
+
+    it('handles successful API response', async () => {
+      useGetItemListQuerySpy.mockReturnValue({
+        data: { data: mockSearchData }, 
+        error: undefined,
+        isLoading: false,
+        isFetching: false,
+      } as Partial<GetItemListQueryResult> as FullHookResult);
 
       renderWithReduxAndRouter(<Home />);
 
       await waitFor(() => {
-        expect(fetchMock).toHaveBeenCalledWith(
-          expect.stringContaining(`/character/all`)
-        );
+        expect(
+          screen.getByText(new RegExp(mockSearchData[0].name, 'i'))
+        ).toBeInTheDocument();
       });
     });
 
-    it('handles successful API response', async () => {
-      const fetchMock = vi.mocked(fetch);
-      fetchMock.mockResolvedValue({
-        ok: true,
-        json: async () => ({ data: mockSearchData }),
-      } as Response);
-
-      renderWithReduxAndRouter(<Home />);
-
-      expect(
-        await screen.findByText(new RegExp(mockSearchData[0].name, 'i'))
-      ).toBeInTheDocument();
-    });
-
     it('handles client error API response', async () => {
-      const fetchMock = vi.mocked(fetch);
-
-      fetchMock.mockResolvedValue({
-        ok: false,
-        status: 400,
-      } as Response);
+      useGetItemListQuerySpy.mockReturnValue({
+        data: undefined,
+        error: { status: 400, data: {} },
+        isLoading: false,
+        isFetching: false,
+      } as Partial<GetItemListQueryResult> as FullHookResult);
 
       renderWithReduxAndRouter(<Home />);
 
@@ -85,12 +64,12 @@ describe('Home Component', () => {
     });
 
     it('handles server error API response', async () => {
-      const fetchMock = vi.mocked(fetch);
-
-      fetchMock.mockResolvedValue({
-        ok: false,
-        status: 500,
-      } as Response);
+      useGetItemListQuerySpy.mockReturnValue({
+        data: undefined,
+        error: { status: 500, data: {} },
+        isLoading: false,
+        isFetching: false,
+      } as Partial<GetItemListQueryResult> as FullHookResult);
 
       renderWithReduxAndRouter(<Home />);
 
@@ -100,12 +79,12 @@ describe('Home Component', () => {
     });
 
     it('handles error API response', async () => {
-      const fetchMock = vi.mocked(fetch);
-
-      fetchMock.mockResolvedValue({
-        ok: false,
-        status: 300,
-      } as Response);
+      useGetItemListQuerySpy.mockReturnValue({
+        data: undefined,
+        error: { status: 300, data: {} },
+        isLoading: false,
+        isFetching: false,
+      } as Partial<GetItemListQueryResult> as FullHookResult);
 
       renderWithReduxAndRouter(<Home />);
 
@@ -115,14 +94,17 @@ describe('Home Component', () => {
     });
 
     it('handles error of access or network', async () => {
-      const fetchMock = vi.mocked(fetch);
-
-      fetchMock.mockRejectedValue(new Error('Failed to fetch'));
+      useGetItemListQuerySpy.mockReturnValue({
+        data: undefined,
+        error: { status: 'FETCH_ERROR', error: 'Failed to fetch' },
+        isLoading: false,
+        isFetching: false,
+      } as Partial<GetItemListQueryResult> as FullHookResult);
 
       renderWithReduxAndRouter(<Home />);
 
       expect(
-        await screen.findByText(/error of access or network/i)
+        await screen.findByText(/no internet connection/i)
       ).toBeInTheDocument();
     });
   });

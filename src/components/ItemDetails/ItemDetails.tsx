@@ -8,7 +8,10 @@ export function ItemDetails() {
   const page = searchParams.get('page') || '1';
   const { itemId } = useParams<{ itemId: string }>();
 
-  const { data, error, isLoading, isFetching } = useGetItemDetailsQuery({id: itemId || ''}, { skip: !itemId });
+  const { data, error, isLoading, isFetching } = useGetItemDetailsQuery(
+    { id: itemId || '' },
+    { skip: !itemId }
+  );
 
   if (isLoading || isFetching) {
     return <Loader></Loader>;
