@@ -1,5 +1,13 @@
 import { create } from 'zustand'
-import type { Submission } from '../components/schemas/submissions'
+
+export type Submission = {
+    name: string;
+    age: number;
+    email: string;
+    gender: string;
+    picture: string;
+    terms: string;
+}
 
 type SubmitStoreState = {
     submissions: Submission[]

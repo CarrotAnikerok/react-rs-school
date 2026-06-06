@@ -1,5 +1,5 @@
+import type { Submission } from "../../hooks/create"
 import Card from "../Card/Card"
-import type { Submission } from "../schemas/submissions"
 import './CardList.css'
 
 type CardProps = {

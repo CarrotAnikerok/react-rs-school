@@ -1,4 +1,4 @@
-import type { Submission } from "../schemas/submissions"
+import type { Submission } from "../../hooks/create";
 import './Card.css'
 
 type CardProps = {
@@ -14,6 +14,8 @@ export default function Card({ submission }: CardProps) {
                 <p>Name: {submission.name}</p>
                 <p>Age: {submission.age}</p>
                 <p>Gender: {submission.gender}</p>
+                <p>Image: </p>
+                <img src={submission.picture}></img>
             </div>
         </div>
   )

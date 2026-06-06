@@ -5,8 +5,46 @@ export const submitFormSchema = z.object({
     age: z.coerce.number().positive({ message: 'Should be positive' }),
     email: z.string().min(1, { message: 'Field required' }).refine(validateEmail, { message: 'Email is wrong'}),
     gender: z.string({ message: 'Field required' }),
+    picture: z.union([
+        z.instanceof(FileList),
+        z.instanceof(File)
+        ]).transform((file) => {
+            if (file instanceof FileList) return file[0];
+            if (file instanceof File) return file;
+            return null;
+        })
+        .refine((file) => !!file, 'File required')
+        .refine(validateImgSize, 'File size must be less than 10mb')
+        .refine(validateImgType, 'File must be image'),
     terms: z.literal('yes', {message: 'Should be checked'}),
 })
+
+function validateImgSize(file: File) {
+    const MAX_FILE_SIZE = 10 * 1024 * 1024;
+
+    if (!file) {
+        return false;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+        console.log(`size is ${file.size}`)
+        return false;
+    }
+
+    return true;
+}
+
+function validateImgType(file: File) {
+    if (!file) {
+        return false;
+    }
+
+    if (!file.type.startsWith('image/')) {
+        return false;
+    }
+
+    return true;
+}
 
 function validateEmail(email:string) {
     if (email.split('@').length < 2) {
@@ -25,4 +63,4 @@ function validateEmail(email:string) {
     return false;
 }
 
-export type Submission= z.infer<typeof submitFormSchema>
+export type SubmitForm= z.infer<typeof submitFormSchema>
