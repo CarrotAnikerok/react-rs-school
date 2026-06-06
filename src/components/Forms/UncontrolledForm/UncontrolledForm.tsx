@@ -47,37 +47,40 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
         <div>
             <form onSubmit={handleSubmit}>
                 <label htmlFor={nameId}>
-                    Name: <input id={nameId} name="name" />
+                    Name: 
+                    <input id={nameId} name="name" />
                 </label>
                 <p>{error.name}</p>
 
                 <label htmlFor={ageId}>
-                    Age: <input id={ageId} name="age" type="number" />
+                    Age: 
+                    <input id={ageId} name="age" type="number" defaultValue={20} />
                 </label>
                 <p>{error.age}</p>
 
                 <label htmlFor={emailId}>
-                    Email: <input id={emailId} name="email" />
+                    Email: 
+                    <input id={emailId} name="email" />
                 </label>
                 <p>{error.email}</p>
 
                 <label htmlFor={genderId}>
                     Gender: 
-                    <select id={genderId} name="gender" defaultValue="orange">
-                        <option value="apple">Apple</option>
-                        <option value="banana">Banana</option>
-                        <option value="orange">Orange</option>
+                    <select id={genderId} name="gender" defaultValue="other">
+                        <option value="other">Other</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option>
                     </select>
                 </label>
                  <p>{error.gender}</p>
 
                 <label htmlFor={termsId}>
                     Accept Terms and Conditions: 
-                    <input id={termsId} type="checkbox" name="terms" />
+                    <input id={termsId} type="checkbox" name="terms" value="yes" />
                 </label >
                 <p>{error.terms}</p>
 
-                <button type="submit" className='submit-button'>Search</button>
+                <button type="submit" className='submit-button'>Submit</button>
             </form>
         </div>
     )

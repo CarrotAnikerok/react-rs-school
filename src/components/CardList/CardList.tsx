@@ -11,11 +11,11 @@ export default function CardList({ submissions }: CardProps) {
     <>
         <h1>Form Submits</h1>
         <div className='card-list'>
-        {submissions.map((element) => {
+        {submissions.map((element, index) => {
             return (
                 <Card
-                key={element.name}
-                submission={element}>
+                    key={index}
+                    submission={element}>
                 </Card>
             )
         })}

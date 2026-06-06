@@ -1,4 +1,5 @@
 .card {
+    animation: flashNew 2s ease-in-out;
     border: 10px solid yellow;
     padding: 10px;
     border-radius: 10%;
@@ -9,4 +10,9 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
+}
+
+@keyframes flashNew {
+    from {border-color: blue}
+    to {border-color: yellow;}
 }

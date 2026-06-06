@@ -14,3 +14,8 @@ form {
     padding: 10px;
     cursor: pointer;
 }
+
+.submit-button:disabled {
+    background-color: lightcoral;
+    color: grey;
+}
