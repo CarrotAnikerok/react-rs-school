@@ -18,16 +18,9 @@
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-.modal-accept {
-    color: #fff;
-    background-color: orange;
-    border: 0px;
-    border-radius: 5px;
-    padding: 10px;
-    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    min-width: 30%;
 }
 
 .modal-close {

@@ -66,7 +66,6 @@ export default function Modal({ children, isOpen, close }: ModalProps) {
             <div className='modal-content' role='dialog' aria-modal='true' aria-label='Modal' tabIndex={-1}>
                 <button type="button" onClick={close} className='modal-close' aria-label="Close">X</button>
                 {children}
-                <button onClick={close} className='modal-accept'>Okay!</button>
             </div>
         </div>
     )
