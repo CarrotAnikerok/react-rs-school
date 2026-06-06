@@ -9,11 +9,11 @@ type FormProps = {
 }
 
 export default function UncontrolledForm({ close, submit }: FormProps) {
-    const ageInputId = useId();
-    const genderInputId = useId();
+    const [nameId, ageId, emailId, genderId, termsId] = [useId(), useId(), useId(), useId(), useId()];
     const [ error, setError ] = useState({
         name: '',
         age: '',
+        email: '',
         gender: '',
         terms: ''
     });
@@ -36,6 +36,7 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
             setError({
                 name: fieldErrors.properties?.name?.errors[0] || '',
                 age: fieldErrors.properties?.age?.errors[0] || '',
+                email: fieldErrors.properties?.email?.errors[0] || '',
                 gender: fieldErrors.properties?.gender?.errors[0] || '',
                 terms: fieldErrors.properties?.terms?.errors[0] || '',
             })
@@ -45,29 +46,37 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Name: <input name="name" />
+                <label htmlFor={nameId}>
+                    Name: <input id={nameId} name="name" />
                 </label>
                 <p>{error.name}</p>
-                <label htmlFor={ageInputId}>
-                    Age: <input id={ageInputId} name="age" type="number" />
+
+                <label htmlFor={ageId}>
+                    Age: <input id={ageId} name="age" type="number" />
                 </label>
                 <p>{error.age}</p>
-                <label>
-                    Email: <input name="email" />
+
+                <label htmlFor={emailId}>
+                    Email: <input id={emailId} name="email" />
                 </label>
-                <label htmlFor={genderInputId}>
+                <p>{error.email}</p>
+
+                <label htmlFor={genderId}>
                     Gender: 
-                    <select id={genderInputId} name="gender" defaultValue="orange">
+                    <select id={genderId} name="gender" defaultValue="orange">
                         <option value="apple">Apple</option>
                         <option value="banana">Banana</option>
                         <option value="orange">Orange</option>
                     </select>
                 </label>
-                <label>
-                    Accept Terms and Conditions: <input type="checkbox" name="terms" />
-                </label>
+                 <p>{error.gender}</p>
+
+                <label htmlFor={termsId}>
+                    Accept Terms and Conditions: 
+                    <input id={termsId} type="checkbox" name="terms" />
+                </label >
                 <p>{error.terms}</p>
+
                 <button type="submit" className='submit-button'>Search</button>
             </form>
         </div>
