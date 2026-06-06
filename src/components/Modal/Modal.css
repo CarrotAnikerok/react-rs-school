@@ -1,0 +1,42 @@
+.modal {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 0, 0, 0.7);
+    z-index: 999;
+    /* transition: all 0.3s ease-in-out; */
+}
+
+.modal-content {
+    position: relative;
+    border: 5px solid yellow;
+    border-radius: 10px;
+    padding: 40px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-accept {
+    color: #fff;
+    background-color: orange;
+    border: 0px;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.modal-close {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    border: 0px;
+    margin-bottom: 10px;
+    background: transparent;
+    cursor: pointer;
+    color: orange;
+}
