@@ -1,9 +1,9 @@
 import { useId } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { submitFormSchema, type SubmitForm } from "../../schemas/submissions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Submission } from "../../../hooks/create";
-import { toBase64 } from "../../utils/utils";
+import { getPasswordStrength, toBase64 } from "../../utils/utils";
 
 type FormProps = {
     close: () => void;
@@ -15,7 +15,7 @@ export default function ControlledForm({ close, submit}: FormProps) {
         genderId, imageId, termsId,
         passwordId, copyPasswordId, countryId
     ] = [useId(), useId(), useId(), useId(), useId(), useId(), useId(), useId(), useId()];
-    const { register, handleSubmit, formState: { isValid, errors, isSubmitting }  } = useForm({
+    const { register, handleSubmit, formState: { isValid, errors, isSubmitting }, control  } = useForm({
       defaultValues: {
         name: '',
         age: 20,
@@ -31,10 +31,9 @@ export default function ControlledForm({ close, submit}: FormProps) {
         submit(newData);
 
         close();
-    } 
+    }
 
-
-    console.log(errors);
+    const password = useWatch({control, name: 'password'})
 
     return (
       <div>
@@ -71,8 +70,8 @@ export default function ControlledForm({ close, submit}: FormProps) {
                     Password: 
                     <input id={passwordId} {...register('password')} />
                 </label>
-                <p>{errors.password?.message}</p>
-
+                {errors.password?.message && (<p>{errors.password?.message}</p>)}
+                {password ? <p>Password is {getPasswordStrength(password)}</p> : ''}
 
                 <label htmlFor={copyPasswordId}>
                     Confirm password: 

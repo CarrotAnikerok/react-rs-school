@@ -18,7 +18,9 @@ export const submitFormSchema = z.object({
         .refine((file) => !!file, 'File required')
         .refine(validateImgSize, 'File size must be less than 10mb')
         .refine(validateImgType, 'File must be image'),
-    terms: z.boolean({ message: 'Should be checked' }).refine((val) => val === true, {
+    terms: z.transform((val) => {
+        return !!val;
+    }).refine((val) => val === true, {
         message: 'Should be checked',
     }),
     password: z.string().min(1, ({ message: 'Field required' })),
@@ -41,7 +43,6 @@ function validateImgSize(file: File) {
     }
 
     if (file.size > MAX_FILE_SIZE) {
-        console.log(`size is ${file.size}`)
         return false;
     }
 
@@ -70,7 +71,6 @@ function validateEmail(email:string) {
     const emailDomainCorrect = domainParts.length > 1 && domainParts[1] !== '';
 
     if (email.indexOf('@') > 0 && emailDomain.includes('.') && emailDomainCorrect) {
-        console.log('domain is ' + emailDomain.split('.'))
         return true
     }
 

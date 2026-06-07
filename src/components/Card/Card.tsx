@@ -6,7 +6,6 @@ type CardProps = {
 }
 
 export default function Card({ submission }: CardProps) {
-    console.log('Submission' + JSON.stringify(submission));
     return (
         <div className="card">
             <h1>Submitted</h1>

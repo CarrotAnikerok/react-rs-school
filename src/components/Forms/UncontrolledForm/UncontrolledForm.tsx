@@ -3,7 +3,7 @@ import '../Form.css';
 import { submitFormSchema, type SubmitForm } from '../../schemas/submissions';
 import * as z from "zod";
 import type { Submission } from '../../../hooks/create';
-import { toBase64 } from '../../utils/utils';
+import { getPasswordStrength, toBase64 } from '../../utils/utils';
 
 type FormProps = {
     close: () => void;
@@ -26,6 +26,8 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
         picture: '',
     });
 
+    const [strength, setStrength] = useState('');
+
     async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
         const form = event.target as HTMLFormElement;
@@ -42,7 +44,6 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
             close();
         } else {
             const fieldErrors = z.treeifyError(result.error);
-            console.log(fieldErrors);
             setError({
                 name: fieldErrors.properties?.name?.errors[0] || '',
                 age: fieldErrors.properties?.age?.errors[0] || '',
@@ -89,15 +90,16 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
 
                 <label htmlFor={passwordId}>
                     Password: 
-                    <input id={passwordId} name="password" />
+                    <input id={passwordId} name="password" onChange={(e) => setStrength(getPasswordStrength(e.target.value))} />
                 </label>
-                <p>{error.email}</p>
+                {error.password ? <p>{error.password}</p> : ''}
+                {strength ? <p>Password is {strength}</p> : ''}
 
                 <label htmlFor={copyPasswordId}>
                     Confirm password: 
                     <input id={copyPasswordId} name="copyPassword" />
                 </label>
-                <p>{error.email}</p>
+                <p>{error.copyPassword}</p>
 
                 <label htmlFor={countryId}>
                     Country: 
