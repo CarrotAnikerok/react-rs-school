@@ -1,25 +1,26 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 export type Submission = {
-    name: string;
-    age: number;
-    email: string;
-    gender: string;
-    picture: string;
-    terms: boolean;
-}
+  name: string;
+  age: number;
+  email: string;
+  gender: string;
+  picture: string;
+  terms: boolean;
+};
 
 type SubmitStoreState = {
-    submissions: Submission[]
-}
+  submissions: Submission[];
+};
 
 type SubmitStoreActions = {
-    setSubmission: (newSubmission: Submission) => void
-}
+  setSubmission: (newSubmission: Submission) => void;
+};
 
-type SubmitStore = SubmitStoreState & SubmitStoreActions
+type SubmitStore = SubmitStoreState & SubmitStoreActions;
 
 export const useSubmit = create<SubmitStore>((set) => ({
-    submissions: [],
-    setSubmission: (submission) => set((state) => ({ submissions: [...state.submissions, submission] })),
-}))
+  submissions: [],
+  setSubmission: (submission) =>
+    set((state) => ({ submissions: [...state.submissions, submission] })),
+}));

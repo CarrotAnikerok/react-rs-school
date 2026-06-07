@@ -1,25 +1,20 @@
-import type { Submission } from "../../hooks/create"
-import Card from "../Card/Card"
-import './CardList.css'
+import type { Submission } from '../../hooks/create';
+import Card from '../Card/Card';
+import './CardList.css';
 
 type CardProps = {
-    submissions: Submission[]
-}
+  submissions: Submission[];
+};
 
 export default function CardList({ submissions }: CardProps) {
   return (
     <>
-        <h1>Form Submits</h1>
-        <div className='card-list'>
+      <h1>Form Submits</h1>
+      <div className="card-list">
         {submissions.map((element, index) => {
-            return (
-                <Card
-                    key={index}
-                    submission={element}>
-                </Card>
-            )
+          return <Card key={index} submission={element}></Card>;
         })}
-    </div>
+      </div>
     </>
-  )
+  );
 }

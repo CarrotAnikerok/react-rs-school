@@ -1,10 +1,10 @@
-import type { ReactNode } from "react";
-import { createPortal } from "react-dom";
+import type { ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 
 type PortalProps = {
-    children?: ReactNode;
-}
+  children?: ReactNode;
+};
 
 export default function Portal({ children }: PortalProps) {
-    return createPortal(children, document.body)
+  return createPortal(children, document.body);
 }
