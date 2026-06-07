@@ -5,10 +5,12 @@ export const submitFormSchema = z.object({
     age: z.coerce.number().positive({ message: 'Should be positive' }),
     email: z.string().min(1, { message: 'Field required' }).refine(validateEmail, { message: 'Email is wrong'}),
     gender: z.string({ message: 'Field required' }),
+    country: z.string({ message: 'Field required' }),
     picture: z.union([
         z.instanceof(FileList),
         z.instanceof(File)
-        ]).transform((file) => {
+        ])
+        .transform((file) => {
             if (file instanceof FileList) return file[0];
             if (file instanceof File) return file;
             return null;
@@ -16,8 +18,20 @@ export const submitFormSchema = z.object({
         .refine((file) => !!file, 'File required')
         .refine(validateImgSize, 'File size must be less than 10mb')
         .refine(validateImgType, 'File must be image'),
-    terms: z.literal('yes', {message: 'Should be checked'}),
-})
+    terms: z.boolean({ message: 'Should be checked' }).refine((val) => val === true, {
+        message: 'Should be checked',
+    }),
+    password: z.string().min(1, ({ message: 'Field required' })),
+    copyPassword: z.string().min(1, ({ message: 'Field required' })),
+}).superRefine((val, ctx) => {
+            if (val.password !== val.copyPassword) {
+                ctx.addIssue({
+                    code: 'custom',
+                    message: 'Confirm password is not the same as password',
+                    path: ['copyPassword']
+                })
+            }
+        });
 
 function validateImgSize(file: File) {
     const MAX_FILE_SIZE = 10 * 1024 * 1024;

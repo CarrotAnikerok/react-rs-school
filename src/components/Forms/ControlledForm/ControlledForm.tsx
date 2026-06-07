@@ -11,7 +11,10 @@ type FormProps = {
 }
 
 export default function ControlledForm({ close, submit}: FormProps) {
-    const [nameId, ageId, emailId, genderId, imageId, termsId] = [useId(), useId(), useId(), useId(), useId(), useId()];
+    const [nameId, ageId, emailId, 
+        genderId, imageId, termsId,
+        passwordId, copyPasswordId, countryId
+    ] = [useId(), useId(), useId(), useId(), useId(), useId(), useId(), useId(), useId()];
     const { register, handleSubmit, formState: { isValid, errors, isSubmitting }  } = useForm({
       defaultValues: {
         name: '',
@@ -29,6 +32,7 @@ export default function ControlledForm({ close, submit}: FormProps) {
 
         close();
     } 
+
 
     console.log(errors);
 
@@ -63,6 +67,24 @@ export default function ControlledForm({ close, submit}: FormProps) {
                 </label>
                 <p>{errors.gender?.message}</p>
 
+                <label htmlFor={passwordId}>
+                    Password: 
+                    <input id={passwordId} {...register('password')} />
+                </label>
+                <p>{errors.password?.message}</p>
+
+
+                <label htmlFor={copyPasswordId}>
+                    Confirm password: 
+                    <input id={copyPasswordId} {...register('copyPassword')} />
+                </label>
+                <p>{errors.copyPassword?.message}</p>
+
+                <label htmlFor={countryId}>
+                    Country: 
+                    <input id={countryId} {...register('country')} />
+                </label>
+
                 <label htmlFor={imageId}>
                     Image: 
                     <input id={imageId} {...register('picture')} type='file' accept="image/*"></input>
@@ -71,7 +93,7 @@ export default function ControlledForm({ close, submit}: FormProps) {
 
                 <label htmlFor={termsId}>
                     Accept Terms and Conditions: 
-                    <input id={termsId} type="checkbox" {...register('terms')} value="yes"/>
+                    <input id={termsId} type="checkbox" {...register('terms')}/>
                 </label>
                 <p>{errors.terms?.message}</p>
 

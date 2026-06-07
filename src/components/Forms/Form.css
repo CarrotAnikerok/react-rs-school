@@ -6,15 +6,6 @@ form {
     justify-content: center;
 }
 
-.submit-button {
-    color: #fff;
-    background-color: orange;
-    border: 0px;
-    border-radius: 5px;
-    padding: 10px;
-    cursor: pointer;
-}
-
 .submit-button:disabled {
     background-color: lightcoral;
     color: grey;

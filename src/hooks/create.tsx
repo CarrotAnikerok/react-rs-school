@@ -6,7 +6,7 @@ export type Submission = {
     email: string;
     gender: string;
     picture: string;
-    terms: string;
+    terms: boolean;
 }
 
 type SubmitStoreState = {

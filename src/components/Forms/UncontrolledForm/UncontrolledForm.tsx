@@ -11,12 +11,17 @@ type FormProps = {
 }
 
 export default function UncontrolledForm({ close, submit }: FormProps) {
-    const [nameId, ageId, emailId, genderId, imageId, termsId] = [useId(), useId(), useId(), useId(), useId(), useId()];
+    const [nameId, ageId, emailId, 
+        genderId, imageId, termsId,
+        passwordId, copyPasswordId, countryId
+    ] = [useId(), useId(), useId(), useId(), useId(), useId(), useId(), useId(), useId()];
     const [ error, setError ] = useState({
         name: '',
         age: '',
         email: '',
         gender: '',
+        password: '',
+        copyPassword: '',
         terms: '',
         picture: '',
     });
@@ -43,6 +48,8 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
                 age: fieldErrors.properties?.age?.errors[0] || '',
                 email: fieldErrors.properties?.email?.errors[0] || '',
                 gender: fieldErrors.properties?.gender?.errors[0] || '',
+                password: fieldErrors.properties?.password?.errors[0] || '',
+                copyPassword: fieldErrors.properties?.copyPassword?.errors[0] || '',
                 picture: fieldErrors.properties?.picture?.errors[0] || '',
                 terms: fieldErrors.properties?.terms?.errors[0] || '',
             })
@@ -80,6 +87,24 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
                 </label>
                  <p>{error.gender}</p>
 
+                <label htmlFor={passwordId}>
+                    Password: 
+                    <input id={passwordId} name="password" />
+                </label>
+                <p>{error.email}</p>
+
+                <label htmlFor={copyPasswordId}>
+                    Confirm password: 
+                    <input id={copyPasswordId} name="copyPassword" />
+                </label>
+                <p>{error.email}</p>
+
+                <label htmlFor={countryId}>
+                    Country: 
+                    <input id={countryId} name="country" />
+                </label>
+                <p>{error.email}</p>
+
                 <label htmlFor={imageId}>
                     Image: 
                     <input id={imageId} name="picture" type='file' accept="image/*"></input>
@@ -88,7 +113,7 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
 
                 <label htmlFor={termsId}>
                     Accept Terms and Conditions: 
-                    <input id={termsId} type="checkbox" name="terms" value="yes" />
+                    <input id={termsId} type="checkbox" name="terms" />
                 </label >
                 <p>{error.terms}</p>
 
