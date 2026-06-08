@@ -24,3 +24,28 @@ export const useSubmit = create<SubmitStore>((set) => ({
   setSubmission: (submission) =>
     set((state) => ({ submissions: [...state.submissions, submission] })),
 }));
+
+type CountryStoreState = {
+  countries: string[];
+};
+
+type CountryStoreActions = {
+  setCountry: (newCountry: string) => void;
+  setCountries: (countries: string[]) => void;
+};
+
+type CountryStore = CountryStoreState & CountryStoreActions;
+
+export const useCountry = create<CountryStore>((set) => ({
+  countries: [
+    "Australia", "Austria", "Belarus", "Brazil", "Canada", 
+    "China", "France", "Germany", "India", "Italy", 
+    "Japan", "Kazakhstan", "Russia", "Spain", "United Kingdom", 
+    "United States"
+  ],
+  setCountry: (country) =>
+    set((state) => ({ countries: [...state.countries, country] })),
+  setCountries: (countryList) =>
+    set((state) => ({ countries: [...state.countries, ...countryList] })),
+  }
+));

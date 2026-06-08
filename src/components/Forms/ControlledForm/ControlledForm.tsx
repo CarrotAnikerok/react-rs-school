@@ -4,6 +4,7 @@ import { submitFormSchema, type SubmitForm } from '../../schemas/submissions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { Submission } from '../../../hooks/create';
 import { getPasswordStrength, toBase64 } from '../../utils/utils';
+import CountryAutocomplete from '../../CountryAutocomplete/CountryAutocomplete';
 
 type FormProps = {
   close: () => void;
@@ -103,8 +104,10 @@ export default function ControlledForm({ close, submit }: FormProps) {
 
         <label htmlFor={countryId}>
           Country:
-          <input id={countryId} {...register('country')} />
+          <input list='countries' id={countryId} {...register('country')} />
+          <CountryAutocomplete></CountryAutocomplete>
         </label>
+        <p>{errors.country?.message}</p>
 
         <label htmlFor={imageId}>
           Image:

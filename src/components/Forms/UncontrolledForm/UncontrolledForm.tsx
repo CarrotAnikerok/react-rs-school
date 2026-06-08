@@ -4,6 +4,7 @@ import { submitFormSchema, type SubmitForm } from '../../schemas/submissions';
 import * as z from 'zod';
 import type { Submission } from '../../../hooks/create';
 import { getPasswordStrength, toBase64 } from '../../utils/utils';
+import CountryAutocomplete from '../../CountryAutocomplete/CountryAutocomplete';
 
 type FormProps = {
   close: () => void;
@@ -41,6 +42,7 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
     copyPassword: '',
     terms: '',
     picture: '',
+    country: ''
   });
 
   const [strength, setStrength] = useState('');
@@ -68,6 +70,7 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
         gender: fieldErrors.properties?.gender?.errors[0] || '',
         password: fieldErrors.properties?.password?.errors[0] || '',
         copyPassword: fieldErrors.properties?.copyPassword?.errors[0] || '',
+        country: fieldErrors.properties?.country?.errors[0] || '',
         picture: fieldErrors.properties?.picture?.errors[0] || '',
         terms: fieldErrors.properties?.terms?.errors[0] || '',
       });
@@ -124,8 +127,10 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
 
         <label htmlFor={countryId}>
           Country:
-          <input id={countryId} name="country" />
+          <input list='countries' id={countryId} name="country" />
+          <CountryAutocomplete></CountryAutocomplete>
         </label>
+        <p>{error.country}</p>
 
         <label htmlFor={imageId}>
           Image:
