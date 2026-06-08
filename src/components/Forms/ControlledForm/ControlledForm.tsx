@@ -104,7 +104,7 @@ export default function ControlledForm({ close, submit }: FormProps) {
 
         <label htmlFor={countryId}>
           Country:
-          <input list='countries' id={countryId} {...register('country')} />
+          <input list="countries" id={countryId} {...register('country')} />
           <CountryAutocomplete></CountryAutocomplete>
         </label>
         <p>{errors.country?.message}</p>

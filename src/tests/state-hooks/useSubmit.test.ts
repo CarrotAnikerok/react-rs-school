@@ -1,4 +1,4 @@
-import { useSubmit, type Submission } from "../../hooks/create";
+import { useSubmit, type Submission } from '../../hooks/create';
 
 describe('Zustand State Management (useSubmit)', () => {
   const mockSubmission: Submission = {
@@ -19,7 +19,7 @@ describe('Zustand State Management (useSubmit)', () => {
     useSubmit.getState().setSubmission(mockSubmission);
 
     const updatedSubmissions = useSubmit.getState().submissions;
-    
+
     expect(updatedSubmissions).toHaveLength(1);
     expect(updatedSubmissions[0]).toEqual(mockSubmission);
   });

@@ -38,14 +38,25 @@ type CountryStore = CountryStoreState & CountryStoreActions;
 
 export const useCountry = create<CountryStore>((set) => ({
   countries: [
-    "Australia", "Austria", "Belarus", "Brazil", "Canada", 
-    "China", "France", "Germany", "India", "Italy", 
-    "Japan", "Kazakhstan", "Russia", "Spain", "United Kingdom", 
-    "United States"
+    'Australia',
+    'Austria',
+    'Belarus',
+    'Brazil',
+    'Canada',
+    'China',
+    'France',
+    'Germany',
+    'India',
+    'Italy',
+    'Japan',
+    'Kazakhstan',
+    'Russia',
+    'Spain',
+    'United Kingdom',
+    'United States',
   ],
   setCountry: (country) =>
     set((state) => ({ countries: [...state.countries, country] })),
   setCountries: (countryList) =>
     set((state) => ({ countries: [...state.countries, ...countryList] })),
-  }
-));
+}));

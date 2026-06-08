@@ -42,7 +42,7 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
     copyPassword: '',
     terms: '',
     picture: '',
-    country: ''
+    country: '',
   });
 
   const [strength, setStrength] = useState('');
@@ -127,7 +127,7 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
 
         <label htmlFor={countryId}>
           Country:
-          <input list='countries' id={countryId} name="country" />
+          <input list="countries" id={countryId} name="country" />
           <CountryAutocomplete></CountryAutocomplete>
         </label>
         <p>{error.country}</p>

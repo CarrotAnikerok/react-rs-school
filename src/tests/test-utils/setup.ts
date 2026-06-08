@@ -4,6 +4,6 @@ import '@testing-library/jest-dom';
 import { useSubmit } from '../../hooks/create';
 
 afterEach(() => {
-    cleanup();
-    useSubmit.setState({ submissions: [] });
+  cleanup();
+  useSubmit.setState({ submissions: [] });
 });
