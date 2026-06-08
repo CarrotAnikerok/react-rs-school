@@ -1,0 +1,64 @@
+img {
+  max-width: 200px;
+  min-width: 200px;
+}
+
+h1 {
+  text-align: center;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+p {
+  color: var(--orange);
+}
+
+.card {
+  animation: flashNew 2s ease-in-out;
+  border: 5px solid var(--orange);
+  padding: 25px;
+  border-radius: 10%;
+  background-color: lightgoldenrodyellow;
+}
+
+.data-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.data-wrapper-text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.block {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.element {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-size: 26px;
+  color: var(--accent-border);
+}
+
+@keyframes flashNew {
+  from {
+    border-color: var(--accent-border);
+  }
+  to {
+    border-color: var(--orange);
+  }
+}
