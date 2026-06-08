@@ -12,7 +12,7 @@ export const submitFormSchema = z
       .min(1, { message: 'Field required' })
       .refine(validateEmail, { message: 'Email is wrong' }),
     gender: z.string({ message: 'Field required' }),
-    country: z.string({ message: 'Field required' }),
+    country: z.string().min(1, { message: 'Field required' }),
     picture: z
       .union([z.instanceof(FileList), z.instanceof(File)])
       .transform((file) => {
