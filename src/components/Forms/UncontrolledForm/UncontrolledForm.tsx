@@ -126,7 +126,6 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
           Country:
           <input id={countryId} name="country" />
         </label>
-        <p>{error.email}</p>
 
         <label htmlFor={imageId}>
           Image:

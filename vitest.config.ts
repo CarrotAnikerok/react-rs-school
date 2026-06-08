@@ -8,7 +8,7 @@ export default mergeConfig(
       exclude: ['node_modules', 'packages/template/*'],
       globals: true,
       environment: 'jsdom',
-      setupFiles: './tests/test-utils/setup.ts',
+      setupFiles: './src/tests/test-utils/setup.ts',
       coverage: {
         thresholds: {
           global: {

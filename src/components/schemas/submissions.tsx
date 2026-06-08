@@ -69,7 +69,7 @@ function validateImgType(file: File) {
   return true;
 }
 
-function validateEmail(email: string) {
+export function validateEmail(email: string) {
   if (email.split('@').length < 2) {
     return false;
   }

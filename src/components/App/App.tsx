@@ -1,5 +1,5 @@
 import './App.css';
-import Portal from '../CreateModal/Portal';
+import Portal from '../Portal/Portal';
 import Modal from '../Modal/Modal';
 import { useState } from 'react';
 import ControlledForm from '../Forms/ControlledForm/ControlledForm';
@@ -7,7 +7,7 @@ import UncontrolledForm from '../Forms/UncontrolledForm/UncontrolledForm';
 import { useSubmit } from '../../hooks/create';
 import CardList from '../CardList/CardList';
 
-function App() {
+export function App() {
   const [isOpen, setOpen] = useState(false);
   const [isUncontrolled, setUncontrolledForm] = useState(false);
   const { submissions, setSubmission } = useSubmit();
@@ -53,5 +53,3 @@ function App() {
     </section>
   );
 }
-
-export default App;
