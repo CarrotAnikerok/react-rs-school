@@ -51,7 +51,7 @@ p {
 
 .title {
   font-size: 26px;
-  color: var(--accent-border);  
+  color: var(--accent-border);
 }
 
 @keyframes flashNew {

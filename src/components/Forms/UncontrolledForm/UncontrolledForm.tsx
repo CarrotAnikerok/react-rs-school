@@ -132,7 +132,7 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
         </label>
         <p>{error.country}</p>
 
-        <label className='image-input' htmlFor={imageId}>
+        <label className="image-input" htmlFor={imageId}>
           Image
           <input
             id={imageId}
@@ -143,7 +143,7 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
         </label>
         <p>{error.picture}</p>
 
-        <label className='checkbox-label' htmlFor={termsId}>
+        <label className="checkbox-label" htmlFor={termsId}>
           Accept Terms and Conditions
           <input id={termsId} type="checkbox" name="terms" />
         </label>

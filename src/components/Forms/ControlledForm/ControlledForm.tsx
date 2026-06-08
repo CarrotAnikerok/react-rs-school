@@ -109,7 +109,7 @@ export default function ControlledForm({ close, submit }: FormProps) {
         </label>
         <p>{errors.country?.message}</p>
 
-        <label className='image-input' htmlFor={imageId}>
+        <label className="image-input" htmlFor={imageId}>
           Image
           <input
             id={imageId}
@@ -120,7 +120,7 @@ export default function ControlledForm({ close, submit }: FormProps) {
         </label>
         <p>{errors.picture?.message}</p>
 
-        <label className='checkbox-label' htmlFor={termsId}>
+        <label className="checkbox-label" htmlFor={termsId}>
           Accept Terms and Conditions
           <input id={termsId} type="checkbox" {...register('terms')} />
         </label>

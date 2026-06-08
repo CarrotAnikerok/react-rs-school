@@ -1,5 +1,9 @@
 import { validateEmail } from '../components/schemas/submissions';
-import { getColoredStrength, getPasswordStrength, toBase64 } from '../components/utils/utils';
+import {
+  getColoredStrength,
+  getPasswordStrength,
+  toBase64,
+} from '../components/utils/utils';
 
 describe('Utilities Component', () => {
   describe('validate password strength', () => {
@@ -83,8 +87,8 @@ describe('Utilities Component', () => {
           Perfect
         </span>
       `);
-      });
     });
+  });
 
   it('convert file to base64', async () => {
     const fileContent = 'hello world';

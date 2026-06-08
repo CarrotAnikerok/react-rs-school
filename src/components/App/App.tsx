@@ -30,7 +30,7 @@ export function App() {
 
       <Portal>
         <Modal isOpen={isOpen} close={closeModal}>
-          <div className='modal-inside'>
+          <div className="modal-inside">
             <button onClick={switchForm}>
               <span>switch form</span>
             </button>
