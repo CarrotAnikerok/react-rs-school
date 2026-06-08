@@ -4,19 +4,22 @@
   --bg: #fff;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  --accent: yellow;
+  --accent-bg: lightcoral;
+  --accent-border: lightblue;
+  --accent-border-2: rgb(81, 181, 214);
+  --modal-bg: rgb(0, 0, 0, 0.7);
 
   --orange: orange;
   --white: #fff;
 
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --text: system-ui, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
   margin: 0;
+  font-family: var(--text);
 }
 
 p {

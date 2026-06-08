@@ -5,6 +5,8 @@ export type Submission = {
   age: number;
   email: string;
   gender: string;
+  country: string;
+  password: string;
   picture: string;
   terms: boolean;
 };

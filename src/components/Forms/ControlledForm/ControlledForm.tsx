@@ -3,7 +3,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { submitFormSchema, type SubmitForm } from '../../schemas/submissions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { Submission } from '../../../hooks/create';
-import { getPasswordStrength, toBase64 } from '../../utils/utils';
+import { getColoredStrength, toBase64 } from '../../utils/utils';
 import CountryAutocomplete from '../../CountryAutocomplete/CountryAutocomplete';
 
 type FormProps = {
@@ -62,25 +62,25 @@ export default function ControlledForm({ close, submit }: FormProps) {
     <div>
       <form onSubmit={handleSubmit(submitForm)}>
         <label htmlFor={nameId}>
-          Name:
+          Name
           <input id={nameId} {...register('name')} />
         </label>
         <p>{errors.name?.message}</p>
 
         <label htmlFor={ageId}>
-          Age:
+          Age
           <input id={ageId} {...register('age')} type="number" />
         </label>
         <p>{errors.age?.message}</p>
 
         <label htmlFor={emailId}>
-          Email:
+          Email
           <input id={emailId} {...register('email')} />
         </label>
         <p>{errors.email?.message}</p>
 
         <label htmlFor={genderId}>
-          Gender:
+          Gender
           <select id={genderId} {...register('gender')}>
             <option value="other">Other</option>
             <option value="female">Female</option>
@@ -90,27 +90,27 @@ export default function ControlledForm({ close, submit }: FormProps) {
         <p>{errors.gender?.message}</p>
 
         <label htmlFor={passwordId}>
-          Password:
+          Password
           <input id={passwordId} {...register('password')} />
         </label>
         {errors.password?.message && <p>{errors.password?.message}</p>}
-        {password ? <p>Password is {getPasswordStrength(password)}</p> : ''}
+        {password ? <p>Password is {getColoredStrength(password)}</p> : ''}
 
         <label htmlFor={copyPasswordId}>
-          Confirm password:
+          Confirm password
           <input id={copyPasswordId} {...register('copyPassword')} />
         </label>
         <p>{errors.copyPassword?.message}</p>
 
         <label htmlFor={countryId}>
-          Country:
+          Country
           <input list="countries" id={countryId} {...register('country')} />
           <CountryAutocomplete></CountryAutocomplete>
         </label>
         <p>{errors.country?.message}</p>
 
-        <label htmlFor={imageId}>
-          Image:
+        <label className='image-input' htmlFor={imageId}>
+          Image
           <input
             id={imageId}
             {...register('picture')}
@@ -120,8 +120,8 @@ export default function ControlledForm({ close, submit }: FormProps) {
         </label>
         <p>{errors.picture?.message}</p>
 
-        <label htmlFor={termsId}>
-          Accept Terms and Conditions:
+        <label className='checkbox-label' htmlFor={termsId}>
+          Accept Terms and Conditions
           <input id={termsId} type="checkbox" {...register('terms')} />
         </label>
         <p>{errors.terms?.message}</p>

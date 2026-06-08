@@ -23,4 +23,32 @@ button {
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  color: var(--orange);
+  background-color: var(--accent);
+  cursor: pointer;
+}
+
+button:active {
+  color: var(--orange);
+  background-color: var(--accent);
+  outline: 2px solid orange;
+  cursor: pointer;
+}
+
+.modal-inside {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 15px;
+  place-content: center;
+  place-items: center;
+}
+
+.modal-inside h1 {
+  width: 270px; 
+  text-align: left; 
+  margin: 20px 0px 20px 0px; 
 }

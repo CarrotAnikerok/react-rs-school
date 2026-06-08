@@ -116,16 +116,16 @@ describe('Uncontrolled Form Component', () => {
 
       const passwordInput = screen.getByLabelText(/^password/i);
       await user.type(passwordInput, 'm');
-      await screen.findByText(/password is very bad/i);
+      await screen.findByText(/very bad/i);
 
       await user.type(passwordInput, 'mM');
-      await screen.findByText(/password is bad/i);
+      await screen.findByText(/bad/i);
 
       await user.type(passwordInput, 'mM2');
-      await screen.findByText(/password is good/i);
+      await screen.findByText(/good/i);
 
       await user.type(passwordInput, 'mM2!');
-      await screen.findByText(/password is perfect/i);
+      await screen.findByText(/perfect/i);
     });
 
     it('validate confirm password', async () => {

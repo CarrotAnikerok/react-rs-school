@@ -1,9 +1,9 @@
-import { useId, useState } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import '../Form.css';
 import { submitFormSchema, type SubmitForm } from '../../schemas/submissions';
 import * as z from 'zod';
 import type { Submission } from '../../../hooks/create';
-import { getPasswordStrength, toBase64 } from '../../utils/utils';
+import { getColoredStrength, toBase64 } from '../../utils/utils';
 import CountryAutocomplete from '../../CountryAutocomplete/CountryAutocomplete';
 
 type FormProps = {
@@ -45,7 +45,7 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
     country: '',
   });
 
-  const [strength, setStrength] = useState('');
+  const [strength, setStrength] = useState<ReactNode>();
 
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -81,25 +81,25 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
     <div>
       <form onSubmit={handleSubmit}>
         <label htmlFor={nameId}>
-          Name:
+          Name
           <input id={nameId} name="name" />
         </label>
         <p>{error.name}</p>
 
         <label htmlFor={ageId}>
-          Age:
+          Age
           <input id={ageId} name="age" type="number" defaultValue={20} />
         </label>
         <p>{error.age}</p>
 
         <label htmlFor={emailId}>
-          Email:
+          Email
           <input id={emailId} name="email" />
         </label>
         <p>{error.email}</p>
 
         <label htmlFor={genderId}>
-          Gender:
+          Gender
           <select id={genderId} name="gender" defaultValue="other">
             <option value="other">Other</option>
             <option value="female">Female</option>
@@ -109,31 +109,31 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
         <p>{error.gender}</p>
 
         <label htmlFor={passwordId}>
-          Password:
+          Password
           <input
             id={passwordId}
             name="password"
-            onChange={(e) => setStrength(getPasswordStrength(e.target.value))}
+            onChange={(e) => setStrength(getColoredStrength(e.target.value))}
           />
         </label>
         {error.password ? <p>{error.password}</p> : ''}
         {strength ? <p>Password is {strength}</p> : ''}
 
         <label htmlFor={copyPasswordId}>
-          Confirm password:
+          Confirm password
           <input id={copyPasswordId} name="copyPassword" />
         </label>
         <p>{error.copyPassword}</p>
 
         <label htmlFor={countryId}>
-          Country:
+          Country
           <input list="countries" id={countryId} name="country" />
           <CountryAutocomplete></CountryAutocomplete>
         </label>
         <p>{error.country}</p>
 
-        <label htmlFor={imageId}>
-          Image:
+        <label className='image-input' htmlFor={imageId}>
+          Image
           <input
             id={imageId}
             name="picture"
@@ -143,8 +143,8 @@ export default function UncontrolledForm({ close, submit }: FormProps) {
         </label>
         <p>{error.picture}</p>
 
-        <label htmlFor={termsId}>
-          Accept Terms and Conditions:
+        <label className='checkbox-label' htmlFor={termsId}>
+          Accept Terms and Conditions
           <input id={termsId} type="checkbox" name="terms" />
         </label>
         <p>{error.terms}</p>

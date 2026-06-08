@@ -1,5 +1,5 @@
 import { validateEmail } from '../components/schemas/submissions';
-import { getPasswordStrength, toBase64 } from '../components/utils/utils';
+import { getColoredStrength, getPasswordStrength, toBase64 } from '../components/utils/utils';
 
 describe('Utilities Component', () => {
   describe('validate password strength', () => {
@@ -23,6 +23,68 @@ describe('Utilities Component', () => {
       expect(perfectPassword).toBe('Perfect');
     });
   });
+
+  describe('validate password color', () => {
+    it('very bad', () => {
+      const veryBadPassword = getColoredStrength('mew');
+      expect(veryBadPassword).toMatchInlineSnapshot(`
+        <span
+          style={
+            {
+              "color": "red",
+            }
+          }
+        >
+          Very bad
+        </span>
+      `);
+    });
+
+    it('bad', () => {
+      const badPassword = getColoredStrength('mewWW');
+      expect(badPassword).toMatchInlineSnapshot(`
+        <span
+          style={
+            {
+              "color": "orange",
+            }
+          }
+        >
+          Bad
+        </span>
+      `);
+    });
+
+    it('good', () => {
+      const goodPassword = getColoredStrength('mewWW!!');
+      expect(goodPassword).toMatchInlineSnapshot(`
+        <span
+          style={
+            {
+              "color": "lightgreen",
+            }
+          }
+        >
+          Good
+        </span>
+      `);
+    });
+
+    it('perfect', () => {
+      const perfectPassword = getColoredStrength('mewWW!!12');
+      expect(perfectPassword).toMatchInlineSnapshot(`
+        <span
+          style={
+            {
+              "color": "green",
+            }
+          }
+        >
+          Perfect
+        </span>
+      `);
+      });
+    });
 
   it('convert file to base64', async () => {
     const fileContent = 'hello world';

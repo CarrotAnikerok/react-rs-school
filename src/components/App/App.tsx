@@ -30,12 +30,12 @@ export function App() {
 
       <Portal>
         <Modal isOpen={isOpen} close={closeModal}>
-          <div>
+          <div className='modal-inside'>
             <button onClick={switchForm}>
               <span>switch form</span>
             </button>
+            <h1>{isUncontrolled ? 'Uncontrolled Form' : 'Controlled Form'}</h1>
           </div>
-          <h1>{isUncontrolled ? 'Uncontrolled Form' : 'Controlled Form'}</h1>
           {isUncontrolled ? (
             <UncontrolledForm
               close={closeModal}
