@@ -1,6 +1,6 @@
 import { useEffect, type ReactNode, type SubmitEvent } from 'react';
 import './Search.css';
-import { useLocalStorage } from '../../customHooks';
+import { useLocalStorage } from '../../utils/customHooks';
 
 type SearchProps = {
   children?: ReactNode;

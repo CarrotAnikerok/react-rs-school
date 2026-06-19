@@ -7,7 +7,7 @@ interface ListParams {
   offset: number;
 }
 
-const CACHE_TTL = Number(import.meta.env.VITE_CACHE_TTL) || 60;
+const CACHE_TTL = Number(process.env.NEXT_PUBLIC_CACHE_TTL) || 60;
 
 export const ponyApi = createApi({
   reducerPath: 'ponyApi',

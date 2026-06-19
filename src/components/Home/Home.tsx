@@ -5,9 +5,9 @@ import { Search } from '../Search/Search';
 import { Outlet, useMatch, useNavigate, useSearchParams } from 'react-router';
 import { Pagination } from '../Pagination/Pagination';
 import './Home.css';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setQuery } from '../../features/home/homeSlice';
 import { useGetItemListQuery } from '../../services/pony';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 export function Home() {
   const dispatch = useAppDispatch();
