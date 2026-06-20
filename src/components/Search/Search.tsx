@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, type ReactNode, type SubmitEvent } from 'react';
 import './Search.css';
 import { useLocalStorage } from '../../utils/customHooks';

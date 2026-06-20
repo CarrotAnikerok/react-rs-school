@@ -1,29 +1,32 @@
-import { Outlet, type NavLinkRenderProps } from 'react-router';
-import { Navigation } from '../Navigation/Navigation';
+'use client'
+
 import { useState } from 'react';
+import { ThemeSwitch } from '../../components/ThemeSwitch/ThemeSwitch';
+import { Navigation } from '../../components/Navigation/Navigation';
 import { ThemeContext, ThemeUpdateContext } from '../../contexts/contexts';
-import { ThemeSwitch } from '../ThemeSwitch/ThemeSwitch';
+import { Provider } from 'react-redux';
+import { store } from '../../utils/store';
 
-export function Layout() {
-  const style = ({ isActive }: NavLinkRenderProps) => {
-    return isActive ? 'active' : '';
-  };
-
+export default function Layout({children}: {
+  children: React.ReactNode
+}) {
   const [theme, setTheme] = useState('light');
 
   return (
     <>
+    <Provider store={store}>
       <ThemeContext value={theme}>
         <div className={`app-container ${theme}`}>
           <ThemeUpdateContext value={setTheme}>
             <ThemeSwitch></ThemeSwitch>
           </ThemeUpdateContext>
-          <Navigation style={style}></Navigation>
+          <Navigation style='isActive'></Navigation>
           <main>
-            <Outlet />
+            {children}
           </main>
         </div>
       </ThemeContext>
+    </Provider>
     </>
   );
 }

@@ -1,22 +1,27 @@
-import { useCallback, useRef } from 'react';
-import { CardList } from '../CardList/CardList';
-import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
-import { Search } from '../Search/Search';
-import { Outlet, useMatch, useNavigate, useSearchParams } from 'react-router';
-import { Pagination } from '../Pagination/Pagination';
-import './Home.css';
-import { setQuery } from '../../features/home/homeSlice';
-import { useGetItemListQuery } from '../../services/pony';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+'use client'
 
-export function Home() {
+import './Home.css';
+import { useCallback, useRef } from 'react';
+import { setQuery } from '../../../features/home/homeSlice';
+import { useGetItemListQuery } from '../../../services/pony';
+import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Search } from '../../../components/Search/Search';
+import { Pagination } from '../../../components/Pagination/Pagination';
+import { ErrorBoundary } from '../../../components/ErrorBoundary/ErrorBoundary';
+import { CardList } from '../../../components/CardList/CardList';
+
+export default function Home({children}: {
+  children: React.ReactNode
+}) {
   const dispatch = useAppDispatch();
 
   const { currentQuery } = useAppSelector((state) => state.home);
 
   const limit = useRef<number>(10);
-  const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
   const offset = (currentPage - 1) * limit.current;
@@ -30,22 +35,22 @@ export function Home() {
     (query: string = 'all') => {
       if (currentQuery !== query) {
         dispatch(setQuery(query));
-        setSearchParams((prev) => {
-          prev.set('page', '1');
-          return prev;
-        });
+        const params = new URLSearchParams(searchParams);
+        params.set('page', String(1));
+        router.push(`${pathname}?${params.toString()}`, { scroll: false });
       }
     },
-    [setSearchParams, currentQuery, dispatch]
+    [currentQuery, dispatch]
   );
 
   const changePage = (newPage: number) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set('page', String(newPage));
-    navigate(`/?${newParams.toString()}`);
+    router.push(`/?${newParams.toString()}`, { scroll: false })
   };
 
-  const isDetailsOpen = !!useMatch('/:itemId');
+  const { itemId } = useParams();
+  const isDetailsOpen = !!itemId;
 
   const list = data?.data;
 
@@ -73,7 +78,7 @@ export function Home() {
         </ErrorBoundary>
       </div>
       <div className="details">
-        <Outlet />
+        {children}
       </div>
     </div>
   );

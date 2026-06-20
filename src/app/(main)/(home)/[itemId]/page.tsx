@@ -1,10 +1,13 @@
-import { Link, useParams, useSearchParams } from 'react-router';
-import { Loader } from '../Loader/Loader';
-import './ItemDetails.css';
-import { useGetItemDetailsQuery } from '../../services/pony';
+'use client'
 
-export function ItemDetails() {
-  const [searchParams] = useSearchParams();
+import { Loader } from '../../../../components/Loader/Loader';
+import { useGetItemDetailsQuery } from '../../../../services/pony';
+import './ItemDetails.css';
+import Link from 'next/link';
+import { notFound, useParams, useSearchParams } from 'next/navigation';
+
+export default function ItemDetails() {
+  const searchParams = useSearchParams();
   const page = searchParams.get('page') || '1';
   const { itemId } = useParams<{ itemId: string }>();
 
@@ -17,8 +20,8 @@ export function ItemDetails() {
     return <Loader></Loader>;
   }
 
-  if (error || !data) {
-    throw new Response('Not Found', { status: 404 });
+  if (error || !data || !data.data || data.data.length === 0) {
+    notFound();
   }
 
   const item = data.data[0];
@@ -28,7 +31,7 @@ export function ItemDetails() {
 
   return (
     <div>
-      <Link to={`/?page=${page}`} className="exit">
+      <Link href={`/?page=${page}`} className="exit">
         ✖
       </Link>
       <h2>{item.name}</h2>

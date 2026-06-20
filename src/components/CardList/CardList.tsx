@@ -3,10 +3,11 @@ import './CardList.css';
 import { Card } from '../Card/Card';
 import { Loader } from '../Loader/Loader';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
-import { Link, useSearchParams } from 'react-router';
 import { getErrorMessage, type PonyData } from '../../features/home/homeSlice';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import type { SerializedError } from '@reduxjs/toolkit';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 type CardListProps = {
   children?: ReactNode;
@@ -17,7 +18,7 @@ type CardListProps = {
 
 export function CardList({ list, isLoading, error }: CardListProps) {
   const [, setThrowError] = useState(null);
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
 
   const throwError = () => {
     setThrowError(() => {
@@ -44,7 +45,7 @@ export function CardList({ list, isLoading, error }: CardListProps) {
           return (
             <Link
               key={element.id}
-              to={`${element.id}?${searchParams.toString()}`}
+              href={`${element.id}?${searchParams.toString()}`}
               style={{
                 display: 'contents',
                 textDecoration: 'none',

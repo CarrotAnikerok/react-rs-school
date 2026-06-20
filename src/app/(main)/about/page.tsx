@@ -1,6 +1,6 @@
 import './About.css';
 
-export function About() {
+export default function About() {
   return (
     <div className="about">
       <p>Hello! Im Carrot and i&apos;m author of this website!</p>

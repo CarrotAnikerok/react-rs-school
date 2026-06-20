@@ -92,3 +92,7 @@ h2 {
 .errorMessage {
   margin: 10px;
 }
+
+.not-found {
+  color: var(--text-h);
+}

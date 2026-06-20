@@ -1,20 +1,20 @@
-import { NavLink, type NavLinkRenderProps } from 'react-router';
+import Link from 'next/link';
 import './Navigation.css';
 
 type LayoutProps = {
-  style: (props: NavLinkRenderProps) => string;
+  style:  string;
 };
 
 export function Navigation({ style }: LayoutProps) {
   return (
     <>
       <nav>
-        <NavLink to="/" className={style}>
+        <Link href="/" className={style}>
           Home
-        </NavLink>
-        <NavLink to="/about" className={style}>
+        </Link>
+        <Link href="/about" className={style}>
           About page
-        </NavLink>
+        </Link>
       </nav>
     </>
   );
