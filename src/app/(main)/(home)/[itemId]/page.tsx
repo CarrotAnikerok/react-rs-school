@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Loader } from '../../../../components/Loader/Loader';
 import { useGetItemDetailsQuery } from '../../../../services/pony';
 import './ItemDetails.css';
@@ -45,7 +46,15 @@ export default function ItemDetails() {
         <b>Kind</b>
         <p>{item.kind.join(', ')}</p>
       </div>
-      <img src={item.image[0]} />
+      <div className="image-container">
+        <Image 
+        src={item.image[0]}
+        alt={item.name}
+        fill
+        sizes="(max-width: 768px) 100vw, 600px"
+        priority
+      />
+      </div>
     </div>
   );
 }
