@@ -1,19 +1,22 @@
-'use client'
+'use client';
 
 import './Home.css';
 import { useCallback, useRef } from 'react';
 import { setQuery } from '../../../features/home/homeSlice';
 import { useGetItemListQuery } from '../../../services/pony';
 import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
-import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 import { Search } from '../../../components/Search/Search';
 import { Pagination } from '../../../components/Pagination/Pagination';
 import { ErrorBoundary } from '../../../components/ErrorBoundary/ErrorBoundary';
 import { CardList } from '../../../components/CardList/CardList';
 
-export default function Home({children}: {
-  children: React.ReactNode
-}) {
+export default function Home({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch();
 
   const { currentQuery } = useAppSelector((state) => state.home);
@@ -46,7 +49,7 @@ export default function Home({children}: {
   const changePage = (newPage: number) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set('page', String(newPage));
-    router.push(`/?${newParams.toString()}`, { scroll: false })
+    router.push(`/?${newParams.toString()}`, { scroll: false });
   };
 
   const { itemId } = useParams();
@@ -77,9 +80,7 @@ export default function Home({children}: {
           ></CardList>
         </ErrorBoundary>
       </div>
-      <div className="details">
-        {children}
-      </div>
+      <div className="details">{children}</div>
     </div>
   );
 }

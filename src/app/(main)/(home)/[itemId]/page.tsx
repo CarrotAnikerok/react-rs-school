@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Loader } from '../../../../components/Loader/Loader';
 import { useGetItemDetailsQuery } from '../../../../services/pony';

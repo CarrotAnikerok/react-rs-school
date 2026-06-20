@@ -1,3 +1,3 @@
 export default function DummyPage() {
-  return null; 
+  return null;
 }

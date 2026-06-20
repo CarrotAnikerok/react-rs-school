@@ -2,7 +2,7 @@ import Link from 'next/link';
 import './Navigation.css';
 
 type LayoutProps = {
-  style:  string;
+  style: string;
 };
 
 export function Navigation({ style }: LayoutProps) {
