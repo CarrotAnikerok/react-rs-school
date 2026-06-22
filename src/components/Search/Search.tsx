@@ -43,7 +43,7 @@ export function Search({ onSearch }: SearchProps) {
           placeholder="rarity"
           defaultValue={searchValue}
         ></input>
-        <button type="submit">Search</button>
+        <button type="submit">{t('search_button')}</button>
       </div>
     </form>
   );

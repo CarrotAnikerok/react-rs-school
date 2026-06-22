@@ -8,6 +8,7 @@ import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import type { SerializedError } from '@reduxjs/toolkit';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 type CardListProps = {
   children?: ReactNode;
@@ -19,6 +20,7 @@ type CardListProps = {
 export function CardList({ list, isLoading, error }: CardListProps) {
   const [, setThrowError] = useState(null);
   const searchParams = useSearchParams();
+  const t = useTranslations('HomePage');
 
   const throwError = () => {
     setThrowError(() => {
@@ -35,12 +37,13 @@ export function CardList({ list, isLoading, error }: CardListProps) {
     return <ErrorMessage message={textError}></ErrorMessage>;
   }
 
+
   return (
     <div>
-      <h3>Pony results!</h3>
+      <h3>{t('pony_results')}</h3>
       <div className="card_grid">
-        <div>Name</div>
-        <div>Description</div>
+        <div>{t('name')}</div>
+        <div>{t('description')}</div>
         {list.map((element) => {
           return (
             <Link
@@ -62,7 +65,7 @@ export function CardList({ list, isLoading, error }: CardListProps) {
         })}
       </div>
       <button className="errorButton" onClick={throwError}>
-        Im an error button!
+        {t('error_button')}
       </button>
     </div>
   );

@@ -23,20 +23,24 @@ export default function LocaleSwitcherSelect({
 
   function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const nextLocale = event.target.value as Locale;
+    const cleanPathname = pathname.replace(/^\/(ru|en)(\/|$)/, '/');
+
     startTransition(() => {
       router.replace(
         // @ts-expect-error -- TypeScript will validate that only known `params`
         // are used in combination with a given `pathname`. Since the two will
         // always match for the current route, we can skip runtime checks.
-        {pathname, params},
+        {pathname:cleanPathname,  params},
         {locale: nextLocale}
       );
+
+      router.refresh();
     });
   }
 
   return (
     <label>
-      <p>{label}</p>
+      <p style={{'display': 'none'}}>{label}</p>
       <select
         defaultValue={defaultValue}
         disabled={isPending}
@@ -44,7 +48,6 @@ export default function LocaleSwitcherSelect({
       >
         {children}
       </select>
-      <span>⌄</span>
     </label>
   );
 }

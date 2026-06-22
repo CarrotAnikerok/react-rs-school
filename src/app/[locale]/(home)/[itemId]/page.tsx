@@ -6,11 +6,13 @@ import { useGetItemDetailsQuery } from '../../../../services/pony';
 import './ItemDetails.css';
 import Link from 'next/link';
 import { notFound, useParams, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function ItemDetails() {
   const searchParams = useSearchParams();
   const page = searchParams.get('page') || '1';
   const { itemId } = useParams<{ itemId: string }>();
+  const t = useTranslations('Item');
 
   const { data, error, isLoading, isFetching } = useGetItemDetailsQuery(
     { id: itemId || '' },
@@ -37,13 +39,13 @@ export default function ItemDetails() {
       </Link>
       <h2>{item.name}</h2>
       <div className="info">
-        <b>Description</b>
+        <b>{t('description')}</b>
         <p>{item.occupation}</p>
-        <b>Sex</b>
+        <b>{t('gender')}</b>
         <p>{item.sex}</p>
-        <b>Residence</b>
+        <b>{t('residence')}</b>
         <p>{item.residence}</p>
-        <b>Kind</b>
+        <b>{t('kind')}</b>
         <p>{item.kind.join(', ')}</p>
       </div>
       <div className="image-container">

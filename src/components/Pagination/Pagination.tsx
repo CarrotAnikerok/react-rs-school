@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import './Pagination.css';
 
 type PaginationProps = {
@@ -19,16 +20,18 @@ export function Pagination({
     changePage(currentPage + 1);
   };
 
+  const t = useTranslations('HomePage');
+
   return (
     <div className="pagination-controls">
       <button disabled={currentPage <= 1} onClick={handleBack}>
-        Back
+        {t('back')}
       </button>
 
       <span>Page {currentPage}</span>
 
       <button disabled={!hasMore} onClick={handleNext}>
-        Next
+        {t('next')}
       </button>
     </div>
   );
