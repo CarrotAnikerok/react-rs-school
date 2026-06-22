@@ -3,6 +3,7 @@ import { Search } from '../../../components/Search/Search';
 import { Pagination } from '../../../components/Pagination/Pagination';
 import { ErrorBoundary } from '../../../components/ErrorBoundary/ErrorBoundary';
 import { CardList } from '../../../components/CardList/CardList';
+import { getTranslations } from 'next-intl/server';
 
 type HomeProps = {
   children: React.ReactNode;
@@ -12,9 +13,9 @@ type HomeProps = {
 
 export default async function Home({ searchParams }: HomeProps) {
   const resolvedSearchParams = await searchParams;
-  console.log(`params is ${resolvedSearchParams}`);
   const currentQuery = resolvedSearchParams?.query || 'all';
   const currentPage = parseInt(resolvedSearchParams?.page || '1', 10);
+  const t = await getTranslations('HomePage');
 
   const limit = 10;
   const offset = (currentPage - 1) * limit;
@@ -44,7 +45,7 @@ export default async function Home({ searchParams }: HomeProps) {
       ) : null}
       <ErrorBoundary
         fallback={
-          <p className="errorMessage">Something went wrong with ponies :(</p>
+          <p className="errorMessage">{t('error')}</p>
         }
       >
         <CardList list={list} isLoading={false} error={error}></CardList>

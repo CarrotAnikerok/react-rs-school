@@ -9,8 +9,7 @@ export function useLocalStorage<T>(key: string, initialValue = '') {
     try {
       const item = localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      console.warn(error);
+    } catch {
       return initialValue;
     }
   });

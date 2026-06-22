@@ -9,7 +9,8 @@
     "name": "name",
     "description": "description",
     "pony_results": "Pony results!",
-    "error_button": "i'm an error button"
+    "error_button": "i'm an error button",
+    "error": "Something went wrong with ponies :("
   },
   "About": {
     "hello": "Hello! I&apos;m Carrot and author of this website!",

@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import './About.css';
 import { useTranslations } from 'next-intl';

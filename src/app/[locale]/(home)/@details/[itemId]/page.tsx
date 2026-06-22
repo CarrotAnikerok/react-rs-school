@@ -23,7 +23,6 @@ export default async function ItemDetails({
     data = response?.data || [];
   } catch (err) {
     error = err;
-    console.log(err);
   }
 
   const page = resolvedSearchParams.page || '1';
@@ -41,7 +40,7 @@ export default async function ItemDetails({
     ? `?page=${page}&query=${encodeURIComponent(query)}`
     : `?page=${page}`;
 
-  // Ссылка ведет на главную текущего языка: например, /en?page=1
+
   const backUrl = `/${locale}${queryString}`;
 
   return (
