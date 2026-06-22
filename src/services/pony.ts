@@ -20,7 +20,7 @@ export async function fetchPonies({ query, limit, offset }: ListParams) {
   return res.json();
 }
 
-export async function fetchPonyById(itemId: number) {
+export async function fetchPonyById(itemId: string) {
   const res = await fetch(`https://ponyapi.net/v1/character/${itemId}`, {
     cache: 'no-store',
   });
