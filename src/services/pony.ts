@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { PonyData, PonyListing } from '../features/home/homeSlice';
+import type { PonyData, PonyListing } from '../lib/features/home/homeSlice';
 
 interface ListParams {
   query: string;

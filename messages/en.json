@@ -1,0 +1,9 @@
+{
+  "HomePage": {
+    "title": "Search the ponies!"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, ru {Russian} en {English} other {Unknown}}"
+  }
+}

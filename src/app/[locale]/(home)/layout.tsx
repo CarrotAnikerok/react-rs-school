@@ -2,9 +2,9 @@
 
 import './Home.css';
 import { useCallback, useRef } from 'react';
-import { setQuery } from '../../../features/home/homeSlice';
+import { setQuery } from '../../../lib/features/home/homeSlice';
 import { useGetItemListQuery } from '../../../services/pony';
-import { useAppDispatch, useAppSelector } from '../../../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../../../lib/hooks';
 import {
   useParams,
   usePathname,

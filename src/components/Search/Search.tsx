@@ -3,6 +3,7 @@
 import { useEffect, type ReactNode, type SubmitEvent } from 'react';
 import './Search.css';
 import { useLocalStorage } from '../../utils/customHooks';
+import { useTranslations } from 'next-intl';
 
 type SearchProps = {
   children?: ReactNode;
@@ -29,9 +30,11 @@ export function Search({ onSearch }: SearchProps) {
     onSearch(searchValue.replaceAll(' ', '_') || 'all');
   }, []);
 
+  const t = useTranslations('HomePage');
+
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="search">Search the pony!</label>
+      <label htmlFor="search">{t('title')}</label>
       <div className="input-group">
         <input
           id="search"

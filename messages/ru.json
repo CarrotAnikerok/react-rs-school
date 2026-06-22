@@ -1,0 +1,9 @@
+{
+  "HomePage": {
+    "title": "Найди пони!"
+  },
+  "LocaleSwitcher": {
+    "label": "Поменять язык",
+    "locale": "{locale, select, ru {Russian} en {English} other {Unknown}}"
+  }
+}

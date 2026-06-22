@@ -1,3 +1,4 @@
+import { NextIntlClientProvider } from 'next-intl';
 import '../index.css';
 
 import type { Metadata } from 'next';
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div id="root">{children}</div>
+        <div id="root">
+          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        </div>
       </body>
     </html>
   );
