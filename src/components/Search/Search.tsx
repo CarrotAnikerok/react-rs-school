@@ -1,36 +1,33 @@
-'use client';
+'use client'
 
-import { useEffect, type ReactNode, type SubmitEvent } from 'react';
+import { type SubmitEvent } from 'react';
 import './Search.css';
-import { useLocalStorage } from '../../utils/customHooks';
 import { useTranslations } from 'next-intl';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-type SearchProps = {
-  children?: ReactNode;
-  onSearch: (query?: string) => void;
-};
+export function Search() {
+  const t = useTranslations('HomePage');
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-export function Search({ onSearch }: SearchProps) {
-  const [searchValue, setSearchValue] = useLocalStorage('searchValue');
+  const currentQuery = searchParams.get('query') || '';
 
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const value = (formData.get('query')?.toString() || '').trim();
-    setSearchValue(value);
+    const formattedValue = value.replaceAll(' ', '_');
+    const params = new URLSearchParams(searchParams.toString());
 
-    if (value === searchValue) {
-      return;
+    if (formattedValue) {
+      params.set('query', formattedValue);
+    } else {
+      params.delete('query');
     }
 
-    onSearch(value.replaceAll(' ', '_') || 'all');
+    params.set('page', '1'); 
+    router.push(`?${params.toString()}`);
   };
-
-  useEffect(() => {
-    onSearch(searchValue.replaceAll(' ', '_') || 'all');
-  }, []);
-
-  const t = useTranslations('HomePage');
 
   return (
     <form onSubmit={handleSubmit}>
@@ -41,7 +38,7 @@ export function Search({ onSearch }: SearchProps) {
           name="query"
           type="search"
           placeholder="rarity"
-          defaultValue={searchValue}
+          defaultValue={currentQuery.replaceAll('_', ' ')}
         ></input>
         <button type="submit">{t('search_button')}</button>
       </div>

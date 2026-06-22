@@ -7,6 +7,30 @@ interface ListParams {
   offset: number;
 }
 
+export async function fetchPonies({query, limit, offset}: ListParams) {
+  const res = await fetch(`https://ponyapi.net/v1/character/${query}?limit=${limit}&offset=${offset}`, 
+    {cache: 'no-store'}
+  );
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch ponies');
+  }
+
+  return res.json();
+}
+
+export async function fetchPonyById(itemId: number) {
+  const res = await fetch(`https://ponyapi.net/v1/character/${itemId}`, 
+    {cache: 'no-store'}
+  );
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch ponies');
+  }
+
+  return res.json();
+}
+
 const CACHE_TTL = Number(process.env.NEXT_PUBLIC_CACHE_TTL) || 60;
 
 export const ponyApi = createApi({
