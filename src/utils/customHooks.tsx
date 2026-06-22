@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react';
 
 export function useLocalStorage<T>(key: string, initialValue = '') {
   const [storedValue, setStoredValue] = useState(() => {
-
     if (typeof window === 'undefined') {
       return initialValue;
     }

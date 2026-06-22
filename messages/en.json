@@ -6,18 +6,18 @@
     "search_button": "Search",
     "back": "back",
     "next": "next",
-    "name":"name",
+    "name": "name",
     "description": "description",
-    "pony_results":"Pony results!",
+    "pony_results": "Pony results!",
     "error_button": "i'm an error button"
   },
-    "About": {
+  "About": {
     "hello": "Hello! I&apos;m Carrot and author of this website!",
     "github": "Github",
     "discord": "Discord",
     "from": "from react school course"
   },
-    "Item": {
+  "Item": {
     "description": "Description",
     "gender": "Gender",
     "residence": "Residence",

@@ -4,10 +4,10 @@ import Providers from '../../components/Providers/Providers';
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-    <Providers>
+      <Providers>
         <Navigation style="isActive"></Navigation>
         <main>{children}</main>
-    </Providers>
+      </Providers>
     </>
   );
 }

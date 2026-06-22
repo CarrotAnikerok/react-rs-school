@@ -1,8 +1,8 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import type {Locale} from 'next-intl';
-import {useTransition, type ChangeEvent, type ReactNode} from 'react';
+import type { Locale } from 'next-intl';
+import { useTransition, type ChangeEvent, type ReactNode } from 'react';
 import { usePathname, useRouter } from '../../i18n/navigations';
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 export default function LocaleSwitcherSelect({
   children,
   defaultValue,
-  label
+  label,
 }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -30,8 +30,8 @@ export default function LocaleSwitcherSelect({
         // @ts-expect-error -- TypeScript will validate that only known `params`
         // are used in combination with a given `pathname`. Since the two will
         // always match for the current route, we can skip runtime checks.
-        {pathname:cleanPathname,  params},
-        {locale: nextLocale}
+        { pathname: cleanPathname, params },
+        { locale: nextLocale }
       );
 
       router.refresh();
@@ -40,7 +40,7 @@ export default function LocaleSwitcherSelect({
 
   return (
     <label>
-      <p style={{'display': 'none'}}>{label}</p>
+      <p style={{ display: 'none' }}>{label}</p>
       <select
         defaultValue={defaultValue}
         disabled={isPending}

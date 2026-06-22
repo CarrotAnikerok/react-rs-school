@@ -1,11 +1,14 @@
-'use client'
+'use client';
 
 import { useState, type ReactNode } from 'react';
 import './CardList.css';
 import { Card } from '../Card/Card';
 import { Loader } from '../Loader/Loader';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
-import { getErrorMessage, type PonyData } from '../../lib/features/home/homeSlice';
+import {
+  getErrorMessage,
+  type PonyData,
+} from '../../lib/features/home/homeSlice';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import type { SerializedError } from '@reduxjs/toolkit';
 import Link from 'next/link';
@@ -38,7 +41,6 @@ export function CardList({ list, isLoading, error }: CardListProps) {
     const textError = getErrorMessage(error);
     return <ErrorMessage message={textError}></ErrorMessage>;
   }
-
 
   return (
     <div>

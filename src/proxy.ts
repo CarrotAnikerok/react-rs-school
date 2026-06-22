@@ -6,9 +6,5 @@ const proxyHandler = createMiddleware(routing);
 export default proxyHandler;
 
 export const config = {
-  matcher: [
-    '/', 
-    '/(ru|en)/:path*', 
-    '/((?!api|_next|_vercel|.*\\..*).*)'
-  ]
+  matcher: ['/', '/(ru|en)/:path*', '/((?!api|_next|_vercel|.*\\..*).*)'],
 };

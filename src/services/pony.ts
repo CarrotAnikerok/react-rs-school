@@ -7,9 +7,10 @@ interface ListParams {
   offset: number;
 }
 
-export async function fetchPonies({query, limit, offset}: ListParams) {
-  const res = await fetch(`https://ponyapi.net/v1/character/${query}?limit=${limit}&offset=${offset}`, 
-    {cache: 'no-store'}
+export async function fetchPonies({ query, limit, offset }: ListParams) {
+  const res = await fetch(
+    `https://ponyapi.net/v1/character/${query}?limit=${limit}&offset=${offset}`,
+    { cache: 'no-store' }
   );
 
   if (!res.ok) {
@@ -20,9 +21,9 @@ export async function fetchPonies({query, limit, offset}: ListParams) {
 }
 
 export async function fetchPonyById(itemId: number) {
-  const res = await fetch(`https://ponyapi.net/v1/character/${itemId}`, 
-    {cache: 'no-store'}
-  );
+  const res = await fetch(`https://ponyapi.net/v1/character/${itemId}`, {
+    cache: 'no-store',
+  });
 
   if (!res.ok) {
     throw new Error('Failed to fetch ponies');

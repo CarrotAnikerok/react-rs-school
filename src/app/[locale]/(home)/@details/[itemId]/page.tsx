@@ -6,22 +6,25 @@ import { getTranslations } from 'next-intl/server';
 
 type DetailsPageProps = {
   params: Promise<{ itemId: string; locale: string }>;
-  searchParams: Promise<{ page?: string; query?: string }>; 
+  searchParams: Promise<{ page?: string; query?: string }>;
 };
 
-export default async function ItemDetails({ params, searchParams }: DetailsPageProps) {
-  const { itemId, locale }  = await params;
+export default async function ItemDetails({
+  params,
+  searchParams,
+}: DetailsPageProps) {
+  const { itemId, locale } = await params;
   const resolvedSearchParams = await searchParams;
   let data;
   let error;
 
   try {
-      const response = await fetchPonyById(itemId);
-      data = response?.data || [];
-    } catch (err) {
-      error = err;
-      console.log(err);
-    }
+    const response = await fetchPonyById(itemId);
+    data = response?.data || [];
+  } catch (err) {
+    error = err;
+    console.log(err);
+  }
 
   const page = resolvedSearchParams.page || '1';
   const query = resolvedSearchParams.query || '';
@@ -34,13 +37,12 @@ export default async function ItemDetails({ params, searchParams }: DetailsPageP
 
   const item = data[0];
 
-  const queryString = query 
-    ? `?page=${page}&query=${encodeURIComponent(query)}` 
+  const queryString = query
+    ? `?page=${page}&query=${encodeURIComponent(query)}`
     : `?page=${page}`;
-    
+
   // Ссылка ведет на главную текущего языка: например, /en?page=1
   const backUrl = `/${locale}${queryString}`;
-  
 
   return (
     <div>
@@ -59,13 +61,13 @@ export default async function ItemDetails({ params, searchParams }: DetailsPageP
         <p>{item.kind.join(', ')}</p>
       </div>
       <div className="image-container">
-        <Image 
-        src={item.image[0]}
-        alt={item.name}
-        fill
-        sizes="(max-width: 768px) 100vw, 600px"
-        priority
-      />
+        <Image
+          src={item.image[0]}
+          alt={item.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 600px"
+          priority
+        />
       </div>
     </div>
   );

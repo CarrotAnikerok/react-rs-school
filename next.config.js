@@ -4,13 +4,15 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const nextConfig = {
   distDir: './dist',
   images: {
-    remotePatterns: [{
+    remotePatterns: [
+      {
         protocol: 'https',
         hostname: 'vignette.wikia.nocookie.net',
         port: '',
         pathname: '/**',
-      }],
-  }
+      },
+    ],
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

@@ -35,24 +35,20 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <>
-        <Search />
-        {!error && list && list.length > 0 ? (
-          <Pagination
-            currentPage={currentPage}
-            hasMore={list.length === limit}
-          ></Pagination>
-        ) : null}
-        <ErrorBoundary
-          fallback={
-            <p className="errorMessage">Something went wrong with ponies :(</p>
-          }
-        >
-          <CardList
-            list={list}
-            isLoading={false}
-            error={error}
-          ></CardList>
-        </ErrorBoundary>
+      <Search />
+      {!error && list && list.length > 0 ? (
+        <Pagination
+          currentPage={currentPage}
+          hasMore={list.length === limit}
+        ></Pagination>
+      ) : null}
+      <ErrorBoundary
+        fallback={
+          <p className="errorMessage">Something went wrong with ponies :(</p>
+        }
+      >
+        <CardList list={list} isLoading={false} error={error}></CardList>
+      </ErrorBoundary>
     </>
   );
 }

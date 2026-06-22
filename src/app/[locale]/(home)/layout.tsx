@@ -8,13 +8,9 @@ type SearchLayoutProps = {
 export default function SearchLayout({ children, details }: SearchLayoutProps) {
   return (
     <div className="home">
-      <div className="list-part">
-        {children}
-      </div>
+      <div className="list-part">{children}</div>
 
-      <div className="details">
-        {details}
-      </div>
+      <div className="details">{details}</div>
     </div>
   );
 }

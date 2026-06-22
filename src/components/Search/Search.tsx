@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { type SubmitEvent } from 'react';
 import './Search.css';
@@ -25,7 +25,7 @@ export function Search() {
       params.delete('query');
     }
 
-    params.set('page', '1'); 
+    params.set('page', '1');
     router.push(`?${params.toString()}`);
   };
 

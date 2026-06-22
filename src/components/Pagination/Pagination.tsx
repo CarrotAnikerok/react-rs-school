@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useTranslations } from 'next-intl';
 import './Pagination.css';
@@ -9,10 +9,7 @@ type PaginationProps = {
   hasMore: boolean;
 };
 
-export function Pagination({
-  currentPage,
-  hasMore,
-}: PaginationProps) {
+export function Pagination({ currentPage, hasMore }: PaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -20,7 +17,7 @@ export function Pagination({
     const newParams = new URLSearchParams(searchParams);
     newParams.set('page', String(newPage));
     router.push(`/?${newParams.toString()}`);
-  }
+  };
 
   const handleBack = () => {
     changePage(currentPage - 1);
