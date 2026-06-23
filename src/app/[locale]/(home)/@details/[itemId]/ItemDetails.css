@@ -1,0 +1,38 @@
+h2 {
+  color: var(--text-h);
+  margin: 10px;
+  font-family: var(--purse);
+  font-size: 45px;
+}
+
+b {
+  color: var(--item-text);
+  font-family: var(--playfair);
+  font-size: 20px;
+}
+
+p {
+  font-family: var(--comic-sans);
+}
+
+.image-container {
+  position: relative;
+  min-width: 400px;
+  max-width: 1200px;
+  min-height: 300px;
+  max-height: 600px;
+}
+
+.image-container img {
+  object-fit: contain;
+}
+
+.info {
+  margin-left: 10px;
+  text-align: left;
+}
+
+.exit {
+  float: inline-end;
+  margin: 10px;
+}

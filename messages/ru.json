@@ -1,0 +1,31 @@
+{
+  "HomePage": {
+    "title": "Найди пони!",
+    "home": "Главная",
+    "about": "О странице",
+    "search_button": "Поиск",
+    "back": "назад",
+    "next": "следующий",
+    "name": "Имя",
+    "description": "Описание",
+    "pony_results": "Пони-результаты!",
+    "error_button": "я кнопка ошибки",
+    "error": "Что-то пошло не так с пони :("
+  },
+  "About": {
+    "hello": "Привет! Меня зовут Морковь и я делала этот несчастный сайт",
+    "github": "Гитхаб",
+    "discord": "Дискорд",
+    "from": "из react school course"
+  },
+  "Item": {
+    "description": "Описание",
+    "gender": "Гендер",
+    "residence": "Местообитание",
+    "kind": "Вид"
+  },
+  "LocaleSwitcher": {
+    "label": "Поменять язык",
+    "locale": "{locale, select, ru {Russian} en {English} other {Unknown}}"
+  }
+}

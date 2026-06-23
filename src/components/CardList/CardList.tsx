@@ -1,12 +1,19 @@
+'use client';
+
 import { useState, type ReactNode } from 'react';
 import './CardList.css';
 import { Card } from '../Card/Card';
 import { Loader } from '../Loader/Loader';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
-import { Link, useSearchParams } from 'react-router';
-import { getErrorMessage, type PonyData } from '../../features/home/homeSlice';
+import {
+  getErrorMessage,
+  type PonyData,
+} from '../../lib/features/home/homeSlice';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import type { SerializedError } from '@reduxjs/toolkit';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 type CardListProps = {
   children?: ReactNode;
@@ -17,7 +24,8 @@ type CardListProps = {
 
 export function CardList({ list, isLoading, error }: CardListProps) {
   const [, setThrowError] = useState(null);
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const t = useTranslations('HomePage');
 
   const throwError = () => {
     setThrowError(() => {
@@ -36,15 +44,15 @@ export function CardList({ list, isLoading, error }: CardListProps) {
 
   return (
     <div>
-      <h3>Pony results!</h3>
+      <h3>{t('pony_results')}</h3>
       <div className="card_grid">
-        <div>Name</div>
-        <div>Description</div>
+        <div>{t('name')}</div>
+        <div>{t('description')}</div>
         {list.map((element) => {
           return (
             <Link
               key={element.id}
-              to={`${element.id}?${searchParams.toString()}`}
+              href={`${element.id}?${searchParams.toString()}`}
               style={{
                 display: 'contents',
                 textDecoration: 'none',
@@ -61,7 +69,7 @@ export function CardList({ list, isLoading, error }: CardListProps) {
         })}
       </div>
       <button className="errorButton" onClick={throwError}>
-        Im an error button!
+        {t('error_button')}
       </button>
     </div>
   );

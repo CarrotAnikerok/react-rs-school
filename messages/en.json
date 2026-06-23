@@ -1,0 +1,31 @@
+{
+  "HomePage": {
+    "title": "Search the ponies!",
+    "home": "Home",
+    "about": "About",
+    "search_button": "Search",
+    "back": "back",
+    "next": "next",
+    "name": "name",
+    "description": "description",
+    "pony_results": "Pony results!",
+    "error_button": "i'm an error button",
+    "error": "Something went wrong with ponies :("
+  },
+  "About": {
+    "hello": "Hello! I&apos;m Carrot and author of this website!",
+    "github": "Github",
+    "discord": "Discord",
+    "from": "from react school course"
+  },
+  "Item": {
+    "description": "Description",
+    "gender": "Gender",
+    "residence": "Residence",
+    "kind": "Kind"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, ru {Russian} en {English} other {Unknown}}"
+  }
+}

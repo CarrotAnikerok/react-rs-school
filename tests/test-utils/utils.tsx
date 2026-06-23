@@ -2,8 +2,8 @@ import { MemoryRouter } from 'react-router';
 import { render } from '@testing-library/react';
 import type { ReactElement } from 'react';
 import { configureStore } from '@reduxjs/toolkit';
-import type { HomeState } from '../../src/features/home/homeSlice';
-import homeReducer from '../../src/features/home/homeSlice';
+import type { HomeState } from '../../src/lib/features/home/homeSlice';
+import homeReducer from '../../src/lib/features/home/homeSlice';
 import { Provider } from 'react-redux';
 import { ponyApi } from '../../src/services/pony';
 

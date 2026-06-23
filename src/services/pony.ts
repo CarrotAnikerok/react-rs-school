@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { PonyData, PonyListing } from '../features/home/homeSlice';
+import type { PonyData, PonyListing } from '../lib/features/home/homeSlice';
 
 interface ListParams {
   query: string;
@@ -7,7 +7,32 @@ interface ListParams {
   offset: number;
 }
 
-const CACHE_TTL = Number(import.meta.env.VITE_CACHE_TTL) || 60;
+export async function fetchPonies({ query, limit, offset }: ListParams) {
+  const res = await fetch(
+    `https://ponyapi.net/v1/character/${query}?limit=${limit}&offset=${offset}`,
+    { cache: 'no-store' }
+  );
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch ponies');
+  }
+
+  return res.json();
+}
+
+export async function fetchPonyById(itemId: string) {
+  const res = await fetch(`https://ponyapi.net/v1/character/${itemId}`, {
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch ponies');
+  }
+
+  return res.json();
+}
+
+const CACHE_TTL = Number(process.env.NEXT_PUBLIC_CACHE_TTL) || 60;
 
 export const ponyApi = createApi({
   reducerPath: 'ponyApi',
